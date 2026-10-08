@@ -33,18 +33,33 @@ def main():
     mean = frames.mean(axis=0)[ok]
     var = frames.var(axis=0, ddof=1)[ok]
 
-    a, b = np.polyfit(mean, var, 1)
-    print(f"Fit: variance = {a:.4f} * mean + {b:.3f}  (N pixels = {mean.size})")
+    # Robust fit: median variance in quantile bins of the mean, then a line through the
+    # bin medians. A least-squares fit on all pixels is pulled up by edges and residual motion.
+    edges = np.unique(np.round(np.percentile(mean, np.linspace(0.5, 99.5, 41)), 1))
+    xs, ys, ns = [], [], []
+    for lo, hi in zip(edges[:-1], edges[1:]):
+        sel = (mean >= lo) & (mean < hi)
+        if sel.sum() >= 2000:
+            xs.append(np.median(mean[sel])); ys.append(np.median(var[sel])); ns.append(int(sel.sum()))
+    xs, ys = np.array(xs), np.array(ys)
+    a, b = np.polyfit(xs, ys, 1)
+    print(f"Robust fit: variance = {a:.4f} * mean + {b:.3f}  (N pixels = {mean.size}, {len(xs)} bins)")
 
     out = Path(cfg.get("results_root", "results")) / "noise"
     out.mkdir(parents=True, exist_ok=True)
     np.savetxt(out / f"{acq.name}_shifts.csv", shifts, delimiter=",", header="dy,dx", comments="")
-    (out / f"{acq.name}_fit.txt").write_text(f"a={a}\nb={b}\nn_frames={acq.n_frames}\n")
+    (out / f"{acq.name}_fit.txt").write_text(f"a={a}\nb={b}\nn_frames={acq.n_frames}\nfit=binned_median\n")
+    np.savetxt(out / f"{acq.name}_bins.csv", np.c_[xs, ys, ns], delimiter=",",
+               header="mean_median,var_median,n_pixels", comments="")
 
     fig, ax = plt.subplots(figsize=(5, 4))
-    ax.hist2d(mean, var, bins=[128, 128], range=[[0, 255], [0, np.percentile(var, 99)]], cmap="Greys", cmin=1)
-    x = np.linspace(0, mean.max(), 100)
+    xmax = float(np.percentile(mean, 99.5)) * 1.05
+    ymax = float(np.percentile(var, 99)) * 1.05
+    ax.hist2d(mean, var, bins=[120, 120], range=[[0, xmax], [0, ymax]], cmap="Greys", cmin=1)
+    ax.plot(xs, ys, "o", ms=3.5, color="C0", label="median per bin")
+    x = np.linspace(0, xmax, 100)
     ax.plot(x, a * x + b, color="C3", lw=1.5, label=f"var = {a:.3f}·mean + {b:.2f}")
+    ax.set_xlim(0, xmax); ax.set_ylim(0, ymax)
     ax.set_xlabel("Per-pixel mean (counts)")
     ax.set_ylabel("Per-pixel variance (counts²)")
     ax.set_title(acq.name, fontsize=8)
