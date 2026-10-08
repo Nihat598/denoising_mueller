@@ -1,0 +1,40 @@
+# Intensity-level classical denoising benchmark (scripts/intensity_classical_benchmark.py)
+# Input: frame 1 (single shot). Reference: mean of the second half of the frames (disjoint).
+paths: configs/paths.yaml
+wavelength: 630
+
+min_frames: 8                 # acquisitions with fewer repeated frames are skipped
+register: true                # integer-shift frames onto frame 1 (OR motion, FF drift)
+vst: true                     # generalized Anscombe with a noise model fitted on reference frames
+saturation: 255
+averaging_baselines: [2, 4]   # plain averaging of the first m frames (m <= N/2), for "shots saved"
+
+split:
+  val:
+    - 2025-08-13_124200_F_FF_HORAO_2006_001
+    - 2025-08-13_124401_F_FF_HORAO_2006_002
+    - 2025-08-12_111757_F_OR_HORAO_2005_001
+    - 2026-05-27_145725_F_FF_HORAO_0000_089
+  test:
+    - 2026-05-27_152402_F_FF_HORAO_0000_098
+    - 2025-08-05_134016_F_FF_HORAO_2003_008
+    - 2025-08-13_124505_F_FF_HORAO_2006_003
+    - 2025-08-13_124640_F_FF_HORAO_2006_004
+    - 2025-08-06_113740_F_OR_HORAO_2004_001
+    - 2025-08-06_113808_F_OR_HORAO_2004_002
+    - 2025-08-06_125142_F_OR_HORAO_2004_011
+    - 2025-08-12_111854_F_OR_HORAO_2005_002
+    - 2025-08-12_112025_F_OR_HORAO_2005_003
+    - 2025-08-15_110213_F_OR_HORAO_2007_052
+    - 2025-08-19_161021_F_OR_HORAO_2008_008
+    - 2025-08-19_161329_F_OR_HORAO_2008_011
+
+# Fixed parameters (without --sweep); placeholders until the validation sweep.
+# With vst: true the data are in unit-noise units, so the same scales as at MM level apply.
+methods:
+  median:   {size: 3}
+  gaussian: {sigma: 1.0}
+  nlm:      {h: 0.8, patch_size: 5, patch_distance: 6}
+  wavelet:  {scale: 1.0}
+  tv:       {weight: 0.5}
+  bm3d:     {scale: 1.0}

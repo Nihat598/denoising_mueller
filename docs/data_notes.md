@@ -26,6 +26,10 @@ OR = operating room (in vivo). Several OR acquisitions have 20-40% saturated pix
 | OR 2007_052 (12 ms) | curved, ~0.05*mean + 1.5 | not a straight line: non-rigid tissue change, not only noise |
 
 Use the FF 0000_098 model for the variance-stabilizing transform.
+Refit with mean (not median) of squared frame differences, frames 5-8 of 0000_098:
+var = 0.034*I + 0.18 (the median-based fit above underestimates the variance).
+The intensity benchmark fits this model per acquisition on its reference frames only.
+Frame 1 of 0000_098 is ~0.12 counts darker than frames 5-8 (lamp drift), shared by all methods.
 
 ## Precomputed MM.npz (checked 2026-10-08)
 - `nM` is stored transposed (textbook M = nM.reshape(4,4).T) and in float16 ("light" mode).

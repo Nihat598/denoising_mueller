@@ -38,6 +38,19 @@ pip install -r requirements.txt
 pip install -e .
 ```
 
+## Benchmarks
+
+```bash
+# MM level (precomputed MM.npz: LQ input, SHQ/HQ reference; no calibration needed)
+python scripts/mm_classical_benchmark.py --split val --sweep      # tune on validation
+python scripts/mm_classical_benchmark.py --split test             # evaluate once
+
+# Intensity level (raw repeated frames: frame 1 input, mean of second half as reference)
+python scripts/intensity_classical_benchmark.py --split val --sweep
+python scripts/intensity_classical_benchmark.py --split test
+```
+Splits and fixed parameters: `configs/mm_classical.yaml`, `configs/intensity_classical.yaml`.
+
 ## First scripts
 
 ```bash

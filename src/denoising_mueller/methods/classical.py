@@ -87,17 +87,16 @@ PARAM_GRIDS: dict[str, tuple[str, list]] = {
 
 
 def denoise(x: np.ndarray, method: str, mask: np.ndarray | None = None,
-            sigma: np.ndarray | None = None, **params) -> tuple[np.ndarray, np.ndarray]:
+            noise_sigma: np.ndarray | None = None, **params) -> tuple[np.ndarray, np.ndarray]:
     """Denoise (H, W, C) data with one classical method.
 
-    Each channel is scaled to unit noise (sigma from the Haar-MAD estimator unless given),
+    Each channel is scaled to unit noise (`noise_sigma` from the Haar-MAD estimator unless given),
     filtered, and scaled back. Returns (denoised, sigma_per_channel).
     """
     if method not in FILTERS:
         raise ValueError(f"Unknown method '{method}'. Available: {sorted(FILTERS)}")
     x = np.asarray(x, dtype=np.float64)
-    if sigma is None:
-        sigma = sigma_per_channel(x, mask)
+    sigma = sigma_per_channel(x, mask) if noise_sigma is None else noise_sigma
     sigma = np.maximum(np.asarray(sigma, dtype=np.float64), 1e-12)
     finite = np.isfinite(x)
     xin = np.where(finite, x, 0.0) / sigma
