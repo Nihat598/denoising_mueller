@@ -9,7 +9,7 @@ from pathlib import Path
 import matplotlib.pyplot as plt
 import numpy as np
 
-from denoising_mueller.data.io import load_paths, open_acquisition
+from denoising_mueller.data.io import find_acquisition, load_paths
 from denoising_mueller.data.registration import register
 
 
@@ -20,7 +20,8 @@ def main():
     args = ap.parse_args()
     cfg = load_paths(args.config)
 
-    acq = open_acquisition(Path(cfg["data_root"]) / args.acq, cfg.get("wavelength", 630))
+    acq = find_acquisition(cfg["data_root"], args.acq, cfg.get("wavelength", 630))
+    print(f"Found {acq.path} ({acq.n_frames} frames)")
     if acq.n_frames < 2:
         raise SystemExit(f"{acq.name}: needs at least 2 frames, found {acq.n_frames}")
     raw = acq.load_frames()                       # (N, 16, H, W)

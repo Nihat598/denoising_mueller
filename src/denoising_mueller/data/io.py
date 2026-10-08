@@ -77,3 +77,19 @@ def list_acquisitions(data_root: str | Path, wavelength: int = 630) -> list[Acqu
     root = Path(data_root)
     dirs = sorted({tp.parent for tp in root.rglob("To_Process") if tp.is_dir()}, key=lambda p: p.name)
     return [open_acquisition(p, wavelength) for p in dirs]
+
+
+def find_acquisition(data_root: str | Path, name: str, wavelength: int = 630) -> Acquisition:
+    """Find an acquisition by folder name anywhere under data_root."""
+    root = Path(data_root)
+    if not root.is_dir():
+        raise FileNotFoundError(f"data_root does not exist: {root}  (check configs/paths.yaml)")
+    direct = root / name
+    if (direct / "To_Process").is_dir():
+        return open_acquisition(direct, wavelength)
+    matches = [tp.parent for tp in root.rglob("To_Process") if tp.parent.name == name]
+    if not matches:
+        raise FileNotFoundError(f"No acquisition named '{name}' under {root}")
+    if len(matches) > 1:
+        raise ValueError(f"Several acquisitions named '{name}': {matches}")
+    return open_acquisition(matches[0], wavelength)
