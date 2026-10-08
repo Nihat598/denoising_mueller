@@ -1,4 +1,5 @@
 # Copy to configs/paths.yaml (git-ignored) and edit for your machine.
-data_root: "C:/Users/Nihat_AHMADLI/Desktop/SPIE/Data_for_denoising/OR_measurements"
+# Data_for_denoising contains the May 2026 FF acquisitions and OR_measurements/.
+data_root: "C:/Users/Nihat_AHMADLI/Desktop/SPIE/Data_for_denoising"
 results_root: "results"
 wavelength: 630

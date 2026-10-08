@@ -4,7 +4,8 @@ Layout of one acquisition:
     <acq>/MetaData.json                      (missing in some acquisitions)
     <acq>/To_Process/<wl>_Image_Number_<k>.npy   k = 1..N, uint8 (H, W, 16)
     <acq>/To_Process/<wl>_Image_Number_LQ.npy    = frame 1
-    <acq>/To_Process/<wl>_Image_Number_HQ.npy    = average, rounded to uint8
+    <acq>/To_Process/<wl>_Image_Number_HQ.npy    = 8-frame average from unknown frames: do not use
+    <acq>/To_Process/<wl>_Image_Number_SHQ.npy   = floor(mean of 16 frames), when present
 """
 from __future__ import annotations
 
@@ -72,7 +73,7 @@ def open_acquisition(path: str | Path, wavelength: int = 630) -> Acquisition:
 
 
 def list_acquisitions(data_root: str | Path, wavelength: int = 630) -> list[Acquisition]:
+    """All acquisitions under data_root (any depth), sorted by folder name."""
     root = Path(data_root)
-    acqs = [open_acquisition(p, wavelength) for p in sorted(root.iterdir())
-            if p.is_dir() and (p / "To_Process").is_dir()]
-    return acqs
+    dirs = sorted({tp.parent for tp in root.rglob("To_Process") if tp.is_dir()}, key=lambda p: p.name)
+    return [open_acquisition(p, wavelength) for p in dirs]
