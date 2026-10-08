@@ -27,6 +27,22 @@ OR = operating room (in vivo). Several OR acquisitions have 20-40% saturated pix
 
 Use the FF 0000_098 model for the variance-stabilizing transform.
 
+## Precomputed MM.npz (checked 2026-10-08)
+- `nM` is stored transposed (textbook M = nM.reshape(4,4).T) and in float16 ("light" mode).
+- `Msk` is all False for IMPv2 data (saturation test uses the wrong camera type): do not use it.
+- Our NumPy Lu-Chipman (`polarimetry/lu_chipman.py`) reproduces the stored totD, linR, totP and
+  azimuth to <= 1e-3 (median), so all maps can be recomputed off-Windows.
+- Physical realizability of the stored reference MMs (Cloude test):
+  | Data | physical | elements abs > 1 |
+  |---|---|---|
+  | Aug 2025 FF and OR (13 acquisitions with LQ + HQ/SHQ) | 97-99% | 0% |
+  | May 2026 FF 0000_089 (zoom 12000) | ~57% | 38% |
+  | May 2026 FF 0000_098 (zoom 10000, focus 6500) | 0% | 97% |
+  Likely cause for 0000_098: zoom/focus differ from the calibration (pixel-wise A, W no longer aligned).
+  Raw intensity frames are unaffected; only the MMs are wrong. Excluded from MM-level benchmarks.
+- HQ references (Aug 2025) are 8-frame averages of unknown frames; LQ (= frame 1) may be part of
+  them, which would make metrics slightly optimistic for all methods alike.
+
 ## Rules
 - Build references from raw frames in float; register OR frames first.
 - An input frame is never part of its own reference.

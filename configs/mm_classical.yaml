@@ -1,0 +1,37 @@
+# MM-level classical denoising benchmark (scripts/mm_classical_benchmark.py)
+# Input: LQ MM.npz (single shot). Reference: SHQ MM.npz if present, else HQ.
+paths: configs/paths.yaml
+wavelength: 630
+
+reference_preference: [SHQ, HQ]
+min_reference_physical: 0.90     # skip acquisitions whose reference MM is mostly non-physical
+register_reference: true         # integer-shift the reference onto the input (OR motion)
+
+# Tune parameters with --sweep on `val`, then fix them below and run `test` once.
+# Proposed split (by acquisition; check that val and test are different specimens with Theotim).
+split:
+  val:
+    - 2025-08-13_124200_F_FF_HORAO_2006_001
+    - 2025-08-13_124401_F_FF_HORAO_2006_002
+    - 2025-08-12_111757_F_OR_HORAO_2005_001
+  test:
+    - 2025-08-05_134016_F_FF_HORAO_2003_008
+    - 2025-08-13_124505_F_FF_HORAO_2006_003
+    - 2025-08-13_124640_F_FF_HORAO_2006_004
+    - 2025-08-06_113740_F_OR_HORAO_2004_001
+    - 2025-08-06_113808_F_OR_HORAO_2004_002
+    - 2025-08-06_125142_F_OR_HORAO_2004_011
+    - 2025-08-12_111854_F_OR_HORAO_2005_002
+    - 2025-08-12_112025_F_OR_HORAO_2005_003
+    - 2025-08-15_110213_F_OR_HORAO_2007_052
+    - 2025-08-19_161021_F_OR_HORAO_2008_008
+    - 2025-08-19_161329_F_OR_HORAO_2008_011
+
+# Fixed parameters (used without --sweep). Placeholders until the validation sweep is done.
+methods:
+  median:   {size: 3}
+  gaussian: {sigma: 1.0}
+  nlm:      {h: 0.8, patch_size: 5, patch_distance: 6}
+  wavelet:  {scale: 1.0}
+  tv:       {weight: 0.5}
+  bm3d:     {scale: 1.0}
