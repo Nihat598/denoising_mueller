@@ -1,0 +1,9 @@
+numpy
+scipy
+scikit-image
+bm3d
+matplotlib
+pyyaml
+tqdm
+pandas
+# torch is installed separately (NGC container or the CUDA build for the DGX Spark)

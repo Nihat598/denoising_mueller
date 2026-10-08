@@ -1,0 +1,35 @@
+# Data and outputs: never commit
+/data/
+*.npy
+*.npz
+*.h5
+*.hdf5
+*.mat
+*.bmp
+*.tif
+*.tiff
+results/*
+!results/.gitkeep
+checkpoints/
+*.pt
+*.pth
+*.ckpt
+runs/
+wandb/
+
+# Local config
+configs/paths.yaml
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+.ipynb_checkpoints/
+
+# OS / editors
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

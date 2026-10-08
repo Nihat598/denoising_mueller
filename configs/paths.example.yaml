@@ -1,0 +1,4 @@
+# Copy to configs/paths.yaml (git-ignored) and edit for your machine.
+data_root: "C:/Users/Nihat_AHMADLI/Desktop/SPIE/OR_measurements"
+results_root: "results"
+wavelength: 630
