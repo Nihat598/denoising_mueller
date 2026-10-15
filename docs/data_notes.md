@@ -55,6 +55,10 @@ Frame 1 of 0000_098 is ~0.12 counts darker than frames 5-8 (lamp drift), shared 
 - Dark image: the IMPv2 calibration subtracts <wl>_Noise.npy from all calibration images; the
   acquisition GUI subtracts it from measurements, the offline batch pipeline does NOT (so stored
   MM.npz are not dark-subtracted). We subtract it by default (`subtract_dark`).
+- Real-data check with the lab's calibration 2026-02-20_153510 (its own B0/P0/P90/L30 images,
+  dark-subtracted): air -> identity (3 decimals), P0/P90 -> ideal polarizers (P90 ~1-2 deg off axis),
+  L30 -> linear retardance 89.8 deg, depolarization ~0. Without dark subtraction elements move by
+  up to 0.05. Confirms the reconstruction convention on real data.
 - Lab azimuth convention = textbook axis + 90 deg (seen on the synthetic QWP: axis 30 -> map 120).
 - Reference noise matters: with an 8-frame reference, NLM scored nM_RMSE 0.0236 vs the reference
   but 0.0062 vs ground truth (synthetic). `nM_RMSE_corr` = sqrt(MSE_vs_ref - var_ref), var_ref from

@@ -126,10 +126,10 @@ def retardance_params(MR: np.ndarray, tol: float = 1e-9):
     # stored maps): half-angle of the retardance vector (a1, a2), rotated by 90 deg and
     # corrected by half the optical rotation psi of MR.
     R = np.radians(totR)
-    with np.errstate(divide="ignore", invalid="ignore"):
+    with np.errstate(divide="ignore", invalid="ignore"):   # R = 0: azimuth undefined (NaN)
         k = 1.0 / (2.0 * np.sin(R))
-    a1 = k * (MR[..., 2, 3] - MR[..., 3, 2])
-    a2 = k * (MR[..., 3, 1] - MR[..., 1, 3])
+        a1 = k * (MR[..., 2, 3] - MR[..., 3, 2])
+        a2 = k * (MR[..., 3, 1] - MR[..., 1, 3])
     psi = 0.5 * np.degrees(np.arctan2(MR[..., 2, 1] - MR[..., 1, 2], MR[..., 1, 1] + MR[..., 2, 2]))
     azimuth = np.mod(0.5 * np.degrees(np.arctan2(a2, a1)) + 90.0 + psi / 2.0, 180.0)
     return linR, azimuth
