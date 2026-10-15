@@ -38,7 +38,26 @@ pip install -r requirements.txt
 pip install -e .
 ```
 
-## Benchmarks
+## Main comparison: intensity level vs MM level (needs calibrated data)
+
+```bash
+python scripts/check_waveplate.py --acq <quarter-wave plate acquisition>   # sanity check of calibration + MM
+python scripts/compare_levels.py --split val --sweep                       # tune each method at each level
+python scripts/compare_levels.py --split test                              # evaluate once
+```
+Same input (frame 1) and reference (mean of frames N/2+1..N) for every method and both levels;
+scores at intensity, MM-element and map level, plus `nM_RMSE_corr` (corrected for the noise of the
+reference itself). Fill the acquisition lists in `configs/compare_levels.yaml` (split by specimen).
+
+Try it without real data:
+```bash
+python scripts/make_synthetic_data.py --out synthetic
+# set data_root: synthetic/data and calib_root: synthetic/calibration in configs/paths.yaml
+python scripts/check_waveplate.py --acq 2026-01-01_120500_F_FF_HORAO_9999_002
+python scripts/compare_levels.py --acq 2026-01-01_120000_F_FF_HORAO_9999_001 --methods gaussian bm3d --crop 128
+```
+
+## Earlier benchmarks (precomputed MM.npz / intensities only)
 
 ```bash
 # MM level (precomputed MM.npz: LQ input, SHQ/HQ reference; no calibration needed)

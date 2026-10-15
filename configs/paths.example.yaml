@@ -1,5 +1,5 @@
 # Copy to configs/paths.yaml (git-ignored) and edit for your machine.
-# Data_for_denoising contains the May 2026 FF acquisitions and OR_measurements/.
-data_root: "C:/Users/Nihat_AHMADLI/Desktop/SPIE/Data_for_denoising"
+data_root: "C:/Users/Nihat_AHMADLI/Desktop/SPIE/Data_for_denoising"   # searched recursively for <acq>/To_Process
+calib_root: "C:/Users/Nihat_AHMADLI/Desktop/SPIE/Calibration"         # holds <YYYY-MM-DD_HHMMSS>/Processed_images/630nm/{A,W}.npy
 results_root: "results"
 wavelength: 630

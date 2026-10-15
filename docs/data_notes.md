@@ -47,6 +47,21 @@ Frame 1 of 0000_098 is ~0.12 counts darker than frames 5-8 (lamp drift), shared 
 - HQ references (Aug 2025) are 8-frame averages of unknown frames; LQ (= frame 1) may be part of
   them, which would make metrics slightly optimistic for all methods alike.
 
+## MM reconstruction (2026-10-15)
+- Ported from the lab's C code (`fastMMPT-full-display/src/mmpt/C-libs`, compute_M_AIW.c +
+  mp_comp_MM_AIW.c): 16-vectors are column-major (mat = vec.reshape(4,4).T), M = A^-1 I W^-1.
+- Cross-check vs the compiled lab library (scripts/crosscheck_lab_library.py, synthetic data):
+  M, nM, totD, linR, totP, azimuth all agree to <= 3e-13.
+- Dark image: the IMPv2 calibration subtracts <wl>_Noise.npy from all calibration images; the
+  acquisition GUI subtracts it from measurements, the offline batch pipeline does NOT (so stored
+  MM.npz are not dark-subtracted). We subtract it by default (`subtract_dark`).
+- Lab azimuth convention = textbook axis + 90 deg (seen on the synthetic QWP: axis 30 -> map 120).
+- Reference noise matters: with an 8-frame reference, NLM scored nM_RMSE 0.0236 vs the reference
+  but 0.0062 vs ground truth (synthetic). `nM_RMSE_corr` = sqrt(MSE_vs_ref - var_ref), var_ref from
+  two halves of the reference frames, matched the true error within 0.0002 for all methods.
+- Physicality: a pure retarder sits on the Cloude boundary, so noise makes ~half its pixels
+  "non-physical" at any fixed small tolerance. The evaluation mask uses tol = 3 x reference noise.
+
 ## Rules
 - Build references from raw frames in float; register OR frames first.
 - An input frame is never part of its own reference.

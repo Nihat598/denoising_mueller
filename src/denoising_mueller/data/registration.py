@@ -12,7 +12,9 @@ Design choices (2026-10-08, after checking on real data):
 - Default is integer shifts (np.roll, no interpolation): interpolation averages
   neighboring pixels and lowers the measured noise, which biases noise statistics
   and the input/reference noise levels.
-- A shift is only kept if it reduces the mismatch by `min_gain` versus no shift.
+- A shift is only kept if it reduces the mismatch by `min_gain` versus no shift AND the reduction
+  is at least half of what a real 1-pixel misalignment of this scene costs. Without the second test,
+  textureless scenes (e.g. a waveplate) received random shifts of up to ~9 px from noise alone.
 """
 from __future__ import annotations
 
@@ -31,6 +33,8 @@ def estimate_shifts(frames: np.ndarray, reference: int = 0, max_shift: int = 10,
     intensity = uniform_filter(frames.mean(axis=1), size=(1, smooth, smooth))
     ref = intensity[reference]
     margin = max_shift + smooth
+    # mismatch caused by a 1-px misalignment of the reference scene: scale of real structure
+    structure = 0.5 * (_mismatch(ref, ref, 1, 0, margin) + _mismatch(ref, ref, 0, 1, margin))
     shifts = np.zeros((len(frames), 2), int)
     for k in range(len(frames)):
         if k == reference:
@@ -43,7 +47,7 @@ def estimate_shifts(frames: np.ndarray, reference: int = 0, max_shift: int = 10,
                 e = _mismatch(ref, intensity[k], dy, dx, margin)
                 if e < best_err:
                     best, best_err = (dy, dx), e
-        if best_err < (1 - min_gain) * err0:
+        if best_err < (1 - min_gain) * err0 and (err0 - best_err) > 0.5 * structure:
             shifts[k] = best
     return shifts
 
