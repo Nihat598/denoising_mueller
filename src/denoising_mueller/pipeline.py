@@ -155,8 +155,10 @@ def baseline_average(p: Prepared, m: int):
 
 
 def intensity_path(p: Prepared, method: str, params: dict, vst: bool = True):
-    """Filter the 16 raw intensities, then compute MM and maps."""
-    t = time.time()
+    """Filter the 16 raw intensities, then compute MM and maps.
+    Returns I, mm, maps, timing with timing = {"denoise": filter only (incl. VST),
+    "pipeline": raw frame -> maps (denoise + MM reconstruction + Lu-Chipman)}."""
+    t0 = time.perf_counter()
     a, b = p.noise
     fg = p.mask
     if vst:
@@ -165,21 +167,27 @@ def intensity_path(p: Prepared, method: str, params: dict, vst: bool = True):
         I = gat_inverse(y, a, b)
     else:
         I, _ = denoise(p.inp, method, mask=fg, **params)
+    t1 = time.perf_counter()
     mm, maps = from_intensities(p, I)
-    return I, mm, maps, time.time() - t
+    t2 = time.perf_counter()
+    return I, mm, maps, {"denoise": t1 - t0, "pipeline": t2 - t0}
 
 
 def mm_path(p: Prepared, method: str, params: dict):
     """MM of frame 1, filter the 16 unnormalized elements, renormalize, maps.
-    The denoised MM is also mapped back to intensities (A M W + dark) for intensity metrics."""
-    t = time.time()
+    The denoised MM is also mapped back to intensities (A M W + dark) for intensity metrics
+    (not timed: scoring only). timing = {"denoise": filter only, "pipeline": raw frame -> maps}."""
+    t0 = time.perf_counter()
     mm0 = reconstruct_mm(p.inp, p.A, p.W, p.dark)
+    t1 = time.perf_counter()
     M_den, _ = denoise(mm0["M"], method, mask=p.mask, **params)
+    t2 = time.perf_counter()
     M11 = M_den[..., 0].copy()
     with np.errstate(divide="ignore", invalid="ignore"):
         nM = M_den / M11[..., None]
     maps = polarimetric_maps(nM)
+    t3 = time.perf_counter()
     I = intensities_from_mm(M_den, p.A, p.W)
     if p.dark is not None:
         I = I + (p.dark[..., None] if p.dark.ndim == 2 else p.dark)
-    return I, {"M": M_den, "nM": nM, "M11": M11}, maps, time.time() - t
+    return I, {"M": M_den, "nM": nM, "M11": M11}, maps, {"denoise": t2 - t1, "pipeline": t3 - t0}

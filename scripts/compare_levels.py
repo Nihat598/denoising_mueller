@@ -19,6 +19,7 @@ Outputs in results/compare_levels/<timestamp>_<split>/: metrics.csv, summary.csv
 from __future__ import annotations
 
 import argparse
+import time
 import shutil
 from datetime import datetime
 from pathlib import Path
@@ -114,15 +115,18 @@ def main():
         base = dict(acq=name, setting=acq.setting, calibration=calib_dir.name, **p.info)
 
         def add(level, method, pname, value, I, mm, maps, dt):
-            r = {**base, "level": level, "method": method, "param": pname, "value": value, "time_s": dt,
+            dt = dt if isinstance(dt, dict) else {"denoise": dt, "pipeline": dt}
+            r = {**base, "level": level, "method": method, "param": pname, "value": value,
+                 "time_denoise_s": dt["denoise"], "time_pipeline_s": dt["pipeline"],
                  **pl.score(p, I, mm["nM"], mm["M11"], maps)}
             rows.append(r)
             print(f"   {level:9s} {method:9s} {pname}={value!s:<5} I_PSNR={r['I_PSNR']:.2f}  nM_RMSE={r['nM_RMSE']:.4f}  "
                   f"linR_RMSE={r['linR_RMSE']:.2f}  az_MAE={r['azimuth_MAE']:.2f}  totP_RMSE={r['totP_RMSE']:.4f}  "
-                  f"phys={r['physical_frac']:.2f}  [{dt:.0f}s]")
+                  f"phys={r['physical_frac']:.2f}  [denoise {dt['denoise']:.1f}s, total {dt['pipeline']:.1f}s]")
             return maps
 
-        in_maps = add("baseline", "none", "", np.nan, *pl.baseline_none(p), 0.0)
+        t0 = time.perf_counter(); none_out = pl.baseline_none(p); t_none = time.perf_counter() - t0
+        in_maps = add("baseline", "none", "", np.nan, *none_out, {"denoise": 0.0, "pipeline": t_none})
         for m in cfg.get("averaging_baselines", []):
             if m <= p.info["n_frames"] // 2:
                 add("baseline", "average", "frames", m, *pl.baseline_average(p, m), 0.0)
@@ -156,7 +160,7 @@ def main():
     df.to_csv(out / "metrics.csv", index=False)
     if df.empty:
         print("No results."); return
-    keys = KEY_METRICS + [c for c in df.columns if c.startswith("truth_")]
+    keys = KEY_METRICS + [c for c in df.columns if c.startswith("truth_")] + ["time_denoise_s", "time_pipeline_s"]
     summary = df.groupby(["method", "level", "param", "value"], dropna=False)[keys].mean()
     summary = summary.sort_values("nM_RMSE")
     summary.to_csv(out / "summary.csv")

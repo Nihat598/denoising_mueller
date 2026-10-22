@@ -79,7 +79,9 @@ def main():
               "  ".join(f"{k}={ref[f'{k}_median']:.3f}" for k in MAPS))
 
         def add(level, method, value, mm, maps, dt):
-            r = {**base, "level": level, "method": method, "value": value, "time_s": dt,
+            dt = dt if isinstance(dt, dict) else {"denoise": dt, "pipeline": dt}
+            r = {**base, "level": level, "method": method, "value": value,
+                 "time_denoise_s": dt["denoise"], "time_pipeline_s": dt["pipeline"],
                  **roi_stats(maps, mm["nM"], p.ref["nM"], roi)}
             rows.append(r)
             print(f"   {level:9s} {method:9s} {value!s:<5} " +
