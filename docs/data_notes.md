@@ -69,3 +69,19 @@ Frame 1 of 0000_098 is ~0.12 counts darker than frames 5-8 (lamp drift), shared 
 ## Rules
 - Build references from raw frames in float; register OR frames first.
 - An input frame is never part of its own reference.
+
+## Measurement_15102026 (Théotim, checked 2026-10-22)
+- 12 acquisitions, 16 frames each, calibration 2026-10-14_164941 (A, W, 630_Noise.npy present; named in MetaData).
+  Frames are now **float16** holding integer counts (old data: uint8). Digital gain 2, exposure 1 ms.
+- Folder names do not always match the content; use MetaData "Name" (e.g. Linear_polarizer/0000_006 = "QWP 0°",
+  Plastic card/0000_010 = "Tap 0°").
+- Reconstruction check (mean of 16 frames, dark-subtracted, central ROI): air and metal plate -> identity,
+  linear polarizer -> ideal polarizer (m12 = m21 = -1), tape -> ~90° linear retarder.
+  QWP 0°/90° -> linR 177°/175°, m44 = -1: a QWP passed twice (reflection geometry) acts as a half-wave plate.
+  RMS vs ideal 180° retarder 0.105. Use `check_waveplate.py --retardance 180` for these.
+- Noise (static samples, frames 9-16): var ~ 0.15-0.24 x I (old May data: 0.034 x I). Skin signal is low
+  (mean 13-17 counts), so single frames are very noisy.
+- Tissue = in vivo skin only (Finger 0000_002, Scar 0000_003). Both move: finger up to 3 px, scar drifts
+  steadily up to 10 px over 16 frames. Motion inflates the fitted noise (scar: 0.87 x I) and makes the
+  "mean of frames 9-16" reference unreliable -> not suitable for the main benchmark; static ex vivo
+  samples (formalin-fixed brain) are still needed.
