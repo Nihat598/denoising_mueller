@@ -1,0 +1,12 @@
+# Uniform reference samples for the bias check (scripts/reference_samples.py).
+# Measurement 2026-10-15 (Théotim), calibration 2026-10-14_164941. Reflection geometry: light crosses
+# transmissive samples twice (a QWP then acts as a half-wave plate, 180 deg).
+roi: [128, 384, 152, 456]          # y0 y1 x0 x1, central region covered by every sample
+samples:
+  - {name: air,              acq: 2026-10-15_154047_F_FF_HORAO_0000_001, nominal: {linR: 0, totD: 0, totP: 0}}
+  - {name: metal plate,      acq: 2026-10-15_161648_F_FF_HORAO_0000_012, nominal: {linR: 0, totD: 0, totP: 0}}
+  - {name: polarizer 0deg,   acq: 2026-10-15_154752_F_FF_HORAO_0000_005, nominal: {totD: 1}}
+  - {name: QWP 0deg (x2),    acq: 2026-10-15_155124_F_FF_HORAO_0000_006, nominal: {linR: 180, totD: 0, totP: 0}}
+  - {name: QWP 90deg (x2),   acq: 2026-10-15_155228_F_FF_HORAO_0000_007, nominal: {linR: 180, totD: 0, totP: 0}}
+  - {name: tape 0deg,        acq: 2026-10-15_161520_F_FF_HORAO_0000_010, nominal: {totD: 0, totP: 0}}
+  - {name: tape 90deg,       acq: 2026-10-15_161552_F_FF_HORAO_0000_011, nominal: {totD: 0, totP: 0}}

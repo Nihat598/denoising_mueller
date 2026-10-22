@@ -164,8 +164,9 @@ def main():
         print("\nMean over acquisitions (sorted by nM_RMSE):\n", summary)
     if args.sweep:
         d = df[df.level != "baseline"]
-        best = d.groupby(["method", "level", "param", "value"])["nM_RMSE"].mean().reset_index()
-        best = best.loc[best.groupby(["method", "level"])["nM_RMSE"].idxmin()]
+        crit = "nM_RMSE_corr" if "nM_RMSE_corr" in d else "nM_RMSE"
+        best = d.groupby(["method", "level", "param", "value"])[crit].mean().reset_index()
+        best = best.loc[best.groupby(["method", "level"])[crit].idxmin()]
         print("\nBest value per method and level on this split (copy into configs/compare_levels.yaml):")
         for _, r in best.iterrows():
             print(f"  {r.method:9s} {r.level:9s} {r.param} = {r.value}")
