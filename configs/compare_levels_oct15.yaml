@@ -1,0 +1,31 @@
+# Measurement 2026-10-15 (Théotim): intensity-level vs MM-level classical denoising (scripts/compare_levels.py)
+# Needs: raw repeated frames (To_Process/<wl>_Image_Number_<k>.npy) + calibration (A, W, <wl>_Noise.npy).
+paths: configs/paths.yaml       # data_root, calib_root, results_root
+wavelength: 630
+
+min_frames: 8                   # input = frame 1, reference = mean of frames N/2+1..N
+register: true                  # integer-shift frames onto frame 1
+subtract_dark: true             # subtract <wl>_Noise.npy before computing M (consistent with calibration)
+vst: true                       # Anscombe transform for the intensity path (noise model fitted on reference frames)
+saturation: 255
+averaging_baselines: [2, 4, 8]  # plain averaging of the first m frames (m <= N/2)
+min_reference_physical: 0.80    # skip acquisitions whose reference MM is mostly non-physical (calibration problem)
+physical_tol: auto              # Cloude eigenvalues >= -tol count as physical; auto = 3 x reference noise (waveplates sit on the boundary)
+
+# Fill in when the data arrive: acquisition folder names, split BY SPECIMEN / PATIENT.
+split:
+  val:  [2026-10-15_160127_F_FF_HORAO_0000_008]            # plastic card 0deg (tuning)
+  test: [2026-10-15_154309_F_FF_HORAO_0000_002,            # finger (in vivo skin)
+         2026-10-15_160203_F_FF_HORAO_0000_009,            # plastic card 90deg
+         2026-10-15_154612_F_FF_HORAO_0000_004]            # Meadowlark polarization card
+
+methods:   # tuned on val (plastic card 0deg) with --sweep, 2026-10-22, criterion nM_RMSE_corr
+  median:   {intensity: {size: 3},        mm: {size: 3}}
+  gaussian: {intensity: {sigma: 0.5},     mm: {sigma: 0.5}}
+  nlm:      {intensity: {h: 1.0, patch_size: 5, patch_distance: 6}, mm: {h: 0.6, patch_size: 5, patch_distance: 6}}
+  wavelet:  {intensity: {scale: 1.0},     mm: {scale: 1.0}}
+  tv:       {intensity: {weight: 0.5},    mm: {weight: 0.5}}
+  bm3d:     {intensity: {scale: 1.5},     mm: {scale: 0.75}}
+
+# Methods drawn in the per-acquisition comparison figures (one figure per method).
+figure_methods: [gaussian, nlm, bm3d]
