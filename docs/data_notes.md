@@ -85,3 +85,7 @@ Frame 1 of 0000_098 is ~0.12 counts darker than frames 5-8 (lamp drift), shared 
   steadily up to 10 px over 16 frames. Motion inflates the fitted noise (scar: 0.87 x I) and makes the
   "mean of frames 9-16" reference unreliable -> not suitable for the main benchmark; static ex vivo
   samples (formalin-fixed brain) are still needed.
+- Classical comparison (2026-10-22): see docs/REPORT_2026-10-22.md and results/2026-10-15_measurement/.
+- Static fine texture: 16-frame MM of air / metal plate keeps a pixel-scale pattern (rms ~0.06-0.07, 7x the
+  temporal noise), different on each sample, channel-dependent -> mostly real surface structure. The four analyzer
+  sub-images are offset by ~0.2 px (aligned to the nearest pixel only, per Théotim); correcting that removes ~7%.

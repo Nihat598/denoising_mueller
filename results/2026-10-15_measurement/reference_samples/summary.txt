@@ -1,0 +1,19 @@
+Mean over reference samples (bias = |median - nominal| or |median - reference median|):
+                    linR_bias  linR_IQR  ...  totP_IQR  nM_RMS_vs_ref
+method   level                           ...                         
+average  baseline      3.5536    9.9290  ...    0.2173         0.0350
+bm3d     mm            2.8118    9.3772  ...    0.2433         0.0455
+gaussian intensity     4.8296   12.1451  ...    0.2261         0.0469
+         mm            4.0700   11.1395  ...    0.2197         0.0471
+tv       intensity     6.1013   13.5214  ...    0.2683         0.0483
+bm3d     intensity     7.2893   14.6361  ...    0.2705         0.0495
+nlm      intensity     6.8116   13.5847  ...    0.2452         0.0495
+tv       mm            1.7652    8.0313  ...    0.1807         0.0506
+wavelet  mm            1.4419    7.6273  ...    0.2013         0.0510
+         intensity     7.9994   15.2485  ...    0.3106         0.0523
+nlm      mm            2.9116    5.9642  ...    0.2403         0.0543
+none     baseline      7.6439   14.4433  ...    0.2684         0.0562
+median   mm            3.8521   10.5876  ...    0.1996         0.0707
+         intensity     5.2764   13.0440  ...    0.2102         0.0750
+
+[14 rows x 7 columns]

@@ -1,6 +1,7 @@
 numpy
 scipy
 scikit-image
+PyWavelets
 bm3d
 matplotlib
 pyyaml

@@ -1,0 +1,147 @@
+Writing to /home/claude/results15/reference_samples/2026-10-22_154622
+
+air (2026-10-15_154047_F_FF_HORAO_0000_001): reference medians linR=1.882  totD=0.046  totP=-0.002
+   baseline  none      nan   linR   2.729 (IQR 2.169)  totD   0.066 (IQR 0.042)  totP  -0.003 (IQR 0.085)  nM_RMS 0.0409
+   baseline  average   2     linR   2.319 (IQR 1.830)  totD   0.057 (IQR 0.039)  totP  -0.002 (IQR 0.077)  nM_RMS 0.0314
+   baseline  average   4     linR   2.032 (IQR 1.606)  totD   0.050 (IQR 0.035)  totP  -0.001 (IQR 0.073)  nM_RMS 0.0240
+   baseline  average   8     linR   1.874 (IQR 1.481)  totD   0.045 (IQR 0.033)  totP  -0.000 (IQR 0.073)  nM_RMS 0.0203
+   intensity median    3     linR   2.041 (IQR 1.621)  totD   0.047 (IQR 0.030)  totP  -0.004 (IQR 0.050)  nM_RMS 0.0662
+   mm        median    3     linR   1.401 (IQR 1.134)  totD   0.033 (IQR 0.021)  totP  -0.001 (IQR 0.048)  nM_RMS 0.0637
+   intensity gaussian  0.5   linR   1.985 (IQR 1.567)  totD   0.048 (IQR 0.031)  totP  -0.002 (IQR 0.062)  nM_RMS 0.0363
+   mm        gaussian  0.5   linR   1.929 (IQR 1.525)  totD   0.047 (IQR 0.030)  totP  -0.001 (IQR 0.061)  nM_RMS 0.0365
+   intensity nlm       1.0   linR   2.384 (IQR 1.992)  totD   0.058 (IQR 0.041)  totP  -0.002 (IQR 0.076)  nM_RMS 0.0377
+   mm        nlm       0.6   linR   0.958 (IQR 1.006)  totD   0.025 (IQR 0.025)  totP   0.000 (IQR 0.035)  nM_RMS 0.0454
+   intensity wavelet   1.0   linR   2.527 (IQR 2.016)  totD   0.062 (IQR 0.040)  totP  -0.003 (IQR 0.081)  nM_RMS 0.0382
+   mm        wavelet   1.0   linR   1.300 (IQR 1.192)  totD   0.027 (IQR 0.023)  totP  -0.001 (IQR 0.066)  nM_RMS 0.0420
+   intensity tv        0.5   linR   2.186 (IQR 1.756)  totD   0.053 (IQR 0.036)  totP  -0.003 (IQR 0.069)  nM_RMS 0.0360
+   mm        tv        0.5   linR   1.250 (IQR 1.076)  totD   0.033 (IQR 0.023)  totP  -0.001 (IQR 0.049)  nM_RMS 0.0423
+   intensity bm3d      1.5   linR   2.257 (IQR 1.784)  totD   0.058 (IQR 0.038)  totP  -0.003 (IQR 0.079)  nM_RMS 0.0365
+   mm        bm3d      0.75  linR   1.355 (IQR 1.225)  totD   0.035 (IQR 0.027)  totP  -0.000 (IQR 0.073)  nM_RMS 0.0357
+
+metal plate (2026-10-15_161648_F_FF_HORAO_0000_012): reference medians linR=2.286  totD=0.046  totP=0.006
+   baseline  none      nan   linR   3.363 (IQR 5.288)  totD   0.067 (IQR 0.043)  totP   0.003 (IQR 0.083)  nM_RMS 0.0479
+   baseline  average   2     linR   2.801 (IQR 4.380)  totD   0.055 (IQR 0.035)  totP   0.004 (IQR 0.072)  nM_RMS 0.0360
+   baseline  average   4     linR   2.457 (IQR 3.806)  totD   0.049 (IQR 0.032)  totP   0.006 (IQR 0.064)  nM_RMS 0.0280
+   baseline  average   8     linR   2.248 (IQR 3.487)  totD   0.045 (IQR 0.030)  totP   0.006 (IQR 0.062)  nM_RMS 0.0230
+   intensity median    3     linR   2.510 (IQR 4.040)  totD   0.049 (IQR 0.033)  totP   0.001 (IQR 0.051)  nM_RMS 0.0569
+   mm        median    3     linR   1.771 (IQR 2.831)  totD   0.035 (IQR 0.023)  totP   0.005 (IQR 0.048)  nM_RMS 0.0536
+   intensity gaussian  0.5   linR   2.469 (IQR 3.809)  totD   0.049 (IQR 0.032)  totP   0.004 (IQR 0.061)  nM_RMS 0.0380
+   mm        gaussian  0.5   linR   2.403 (IQR 3.724)  totD   0.048 (IQR 0.032)  totP   0.004 (IQR 0.061)  nM_RMS 0.0382
+   intensity nlm       1.0   linR   3.058 (IQR 5.041)  totD   0.058 (IQR 0.039)  totP   0.005 (IQR 0.073)  nM_RMS 0.0419
+   mm        nlm       0.6   linR   1.902 (IQR 4.731)  totD   0.037 (IQR 0.028)  totP   0.008 (IQR 0.044)  nM_RMS 0.0418
+   intensity wavelet   1.0   linR   3.080 (IQR 4.856)  totD   0.062 (IQR 0.041)  totP   0.003 (IQR 0.078)  nM_RMS 0.0440
+   mm        wavelet   1.0   linR   1.744 (IQR 3.518)  totD   0.031 (IQR 0.025)  totP   0.005 (IQR 0.066)  nM_RMS 0.0401
+   intensity tv        0.5   linR   2.713 (IQR 4.352)  totD   0.055 (IQR 0.037)  totP   0.004 (IQR 0.067)  nM_RMS 0.0403
+   mm        tv        0.5   linR   1.655 (IQR 3.160)  totD   0.034 (IQR 0.025)  totP   0.005 (IQR 0.053)  nM_RMS 0.0394
+   intensity bm3d      1.5   linR   2.727 (IQR 4.182)  totD   0.057 (IQR 0.037)  totP   0.005 (IQR 0.074)  nM_RMS 0.0398
+   mm        bm3d      0.75  linR   1.845 (IQR 3.458)  totD   0.041 (IQR 0.025)  totP   0.006 (IQR 0.071)  nM_RMS 0.0371
+
+polarizer 0deg (2026-10-15_154752_F_FF_HORAO_0000_005): reference medians linR=26.370  totD=1.016  totP=0.136
+   baseline  none      nan   linR  64.515 (IQR 72.197)  totD   1.018 (IQR 0.019)  totP  -0.059 (IQR 1.302)  nM_RMS 0.0734
+   baseline  average   2     linR  52.678 (IQR 64.338)  totD   1.017 (IQR 0.015)  totP  -0.026 (IQR 1.324)  nM_RMS 0.0544
+   baseline  average   4     linR  36.962 (IQR 47.601)  totD   1.017 (IQR 0.013)  totP   0.110 (IQR 0.991)  nM_RMS 0.0426
+   baseline  average   8     linR  26.208 (IQR 27.264)  totD   1.016 (IQR 0.011)  totP   0.153 (IQR 0.802)  nM_RMS 0.0342
+   intensity median    3     linR  50.574 (IQR 67.755)  totD   1.018 (IQR 0.015)  totP  -0.002 (IQR 1.129)  nM_RMS 0.0825
+   mm        median    3     linR  43.252 (IQR 54.993)  totD   1.017 (IQR 0.012)  totP   0.141 (IQR 1.070)  nM_RMS 0.0736
+   intensity gaussian  0.5   linR  47.895 (IQR 61.925)  totD   1.017 (IQR 0.014)  totP   0.025 (IQR 1.168)  nM_RMS 0.0561
+   mm        gaussian  0.5   linR  42.909 (IQR 55.246)  totD   1.017 (IQR 0.012)  totP   0.043 (IQR 1.127)  nM_RMS 0.0560
+   intensity nlm       1.0   linR  59.732 (IQR 69.229)  totD   1.018 (IQR 0.016)  totP  -0.018 (IQR 1.219)  nM_RMS 0.0635
+   mm        nlm       0.6   linR  15.746 (IQR 22.981)  totD   1.016 (IQR 0.005)  totP  -0.245 (IQR 1.452)  nM_RMS 0.0571
+   intensity wavelet   1.0   linR  67.783 (IQR 79.709)  totD   1.018 (IQR 0.018)  totP  -0.257 (IQR 1.636)  nM_RMS 0.0689
+   mm        wavelet   1.0   linR  26.496 (IQR 33.056)  totD   1.017 (IQR 0.010)  totP   0.211 (IQR 0.974)  nM_RMS 0.0493
+   intensity tv        0.5   linR  55.881 (IQR 70.021)  totD   1.017 (IQR 0.016)  totP  -0.052 (IQR 1.425)  nM_RMS 0.0606
+   mm        tv        0.5   linR  28.947 (IQR 37.675)  totD   1.017 (IQR 0.009)  totP   0.153 (IQR 0.937)  nM_RMS 0.0533
+   intensity bm3d      1.5   linR  63.853 (IQR 77.868)  totD   1.017 (IQR 0.017)  totP  -0.070 (IQR 1.380)  nM_RMS 0.0627
+   mm        bm3d      0.75  linR  35.970 (IQR 45.919)  totD   1.017 (IQR 0.013)  totP   0.164 (IQR 1.224)  nM_RMS 0.0455
+
+QWP 0deg (x2) (2026-10-15_155124_F_FF_HORAO_0000_006): reference medians linR=177.204  totD=0.097  totP=0.012
+   baseline  none      nan   linR 176.300 (IQR 2.883)  totD   0.108 (IQR 0.075)  totP   0.009 (IQR 0.116)  nM_RMS 0.0522
+   baseline  average   2     linR 176.713 (IQR 2.544)  totD   0.103 (IQR 0.072)  totP   0.011 (IQR 0.108)  nM_RMS 0.0381
+   baseline  average   4     linR 177.091 (IQR 2.261)  totD   0.097 (IQR 0.067)  totP   0.012 (IQR 0.101)  nM_RMS 0.0306
+   baseline  average   8     linR 177.218 (IQR 2.153)  totD   0.097 (IQR 0.064)  totP   0.012 (IQR 0.100)  nM_RMS 0.0257
+   intensity median    3     linR 176.979 (IQR 2.268)  totD   0.094 (IQR 0.055)  totP   0.013 (IQR 0.064)  nM_RMS 0.0996
+   mm        median    3     linR 177.843 (IQR 1.586)  totD   0.085 (IQR 0.038)  totP   0.014 (IQR 0.062)  nM_RMS 0.0969
+   intensity gaussian  0.5   linR 177.103 (IQR 2.176)  totD   0.095 (IQR 0.060)  totP   0.011 (IQR 0.081)  nM_RMS 0.0520
+   mm        gaussian  0.5   linR 177.262 (IQR 2.050)  totD   0.094 (IQR 0.057)  totP   0.012 (IQR 0.080)  nM_RMS 0.0524
+   intensity nlm       1.0   linR 176.346 (IQR 2.850)  totD   0.108 (IQR 0.074)  totP   0.009 (IQR 0.114)  nM_RMS 0.0516
+   mm        nlm       0.6   linR 178.025 (IQR 1.058)  totD   0.085 (IQR 0.030)  totP   0.014 (IQR 0.039)  nM_RMS 0.0704
+   intensity wavelet   1.0   linR 176.434 (IQR 2.762)  totD   0.106 (IQR 0.073)  totP   0.011 (IQR 0.112)  nM_RMS 0.0515
+   mm        wavelet   1.0   linR 177.889 (IQR 1.647)  totD   0.089 (IQR 0.038)  totP   0.011 (IQR 0.083)  nM_RMS 0.0642
+   intensity tv        0.5   linR 176.816 (IQR 2.444)  totD   0.098 (IQR 0.067)  totP   0.014 (IQR 0.095)  nM_RMS 0.0508
+   mm        tv        0.5   linR 177.931 (IQR 1.403)  totD   0.087 (IQR 0.033)  totP   0.012 (IQR 0.058)  nM_RMS 0.0643
+   intensity bm3d      1.5   linR 176.569 (IQR 2.644)  totD   0.103 (IQR 0.073)  totP   0.012 (IQR 0.113)  nM_RMS 0.0539
+   mm        bm3d      0.75  linR 177.909 (IQR 1.553)  totD   0.090 (IQR 0.042)  totP   0.013 (IQR 0.094)  nM_RMS 0.0543
+
+QWP 90deg (x2) (2026-10-15_155228_F_FF_HORAO_0000_007): reference medians linR=175.337  totD=0.093  totP=0.011
+   baseline  none      nan   linR 174.850 (IQR 4.128)  totD   0.110 (IQR 0.068)  totP   0.006 (IQR 0.122)  nM_RMS 0.0572
+   baseline  average   2     linR 175.096 (IQR 3.417)  totD   0.103 (IQR 0.054)  totP   0.009 (IQR 0.105)  nM_RMS 0.0453
+   baseline  average   4     linR 175.189 (IQR 3.013)  totD   0.101 (IQR 0.049)  totP   0.011 (IQR 0.098)  nM_RMS 0.0386
+   baseline  average   8     linR 175.274 (IQR 2.699)  totD   0.095 (IQR 0.043)  totP   0.011 (IQR 0.095)  nM_RMS 0.0280
+   intensity median    3     linR 175.242 (IQR 3.386)  totD   0.088 (IQR 0.050)  totP   0.010 (IQR 0.068)  nM_RMS 0.1003
+   mm        median    3     linR 175.463 (IQR 2.252)  totD   0.075 (IQR 0.033)  totP   0.010 (IQR 0.064)  nM_RMS 0.0962
+   intensity gaussian  0.5   linR 175.238 (IQR 3.135)  totD   0.090 (IQR 0.052)  totP   0.010 (IQR 0.084)  nM_RMS 0.0529
+   mm        gaussian  0.5   linR 175.304 (IQR 3.095)  totD   0.089 (IQR 0.049)  totP   0.010 (IQR 0.084)  nM_RMS 0.0534
+   intensity nlm       1.0   linR 175.026 (IQR 3.676)  totD   0.102 (IQR 0.065)  totP   0.008 (IQR 0.107)  nM_RMS 0.0536
+   mm        nlm       0.6   linR 175.512 (IQR 1.254)  totD   0.072 (IQR 0.024)  totP   0.013 (IQR 0.039)  nM_RMS 0.0711
+   intensity wavelet   1.0   linR 174.962 (IQR 3.964)  totD   0.107 (IQR 0.065)  totP   0.009 (IQR 0.113)  nM_RMS 0.0546
+   mm        wavelet   1.0   linR 175.384 (IQR 2.298)  totD   0.077 (IQR 0.036)  totP   0.009 (IQR 0.088)  nM_RMS 0.0659
+   intensity tv        0.5   linR 175.168 (IQR 3.437)  totD   0.097 (IQR 0.057)  totP   0.013 (IQR 0.092)  nM_RMS 0.0520
+   mm        tv        0.5   linR 175.442 (IQR 1.826)  totD   0.075 (IQR 0.031)  totP   0.010 (IQR 0.060)  nM_RMS 0.0644
+   intensity bm3d      1.5   linR 175.165 (IQR 3.662)  totD   0.106 (IQR 0.064)  totP   0.012 (IQR 0.111)  nM_RMS 0.0572
+   mm        bm3d      0.75  linR 175.402 (IQR 2.317)  totD   0.079 (IQR 0.043)  totP   0.009 (IQR 0.101)  nM_RMS 0.0566
+
+tape 0deg (2026-10-15_161520_F_FF_HORAO_0000_010): reference medians linR=90.415  totD=0.064  totP=0.043
+   baseline  none      nan   linR  90.199 (IQR 8.197)  totD   0.085 (IQR 0.051)  totP   0.041 (IQR 0.087)  nM_RMS 0.0623
+   baseline  average   2     linR  90.325 (IQR 7.458)  totD   0.074 (IQR 0.043)  totP   0.043 (IQR 0.079)  nM_RMS 0.0495
+   baseline  average   4     linR  90.417 (IQR 7.094)  totD   0.065 (IQR 0.036)  totP   0.043 (IQR 0.075)  nM_RMS 0.0408
+   baseline  average   8     linR  90.435 (IQR 6.888)  totD   0.063 (IQR 0.033)  totP   0.043 (IQR 0.070)  nM_RMS 0.0330
+   intensity median    3     linR  90.287 (IQR 7.051)  totD   0.067 (IQR 0.039)  totP   0.039 (IQR 0.058)  nM_RMS 0.0610
+   mm        median    3     linR  90.492 (IQR 6.629)  totD   0.057 (IQR 0.026)  totP   0.042 (IQR 0.056)  nM_RMS 0.0573
+   intensity gaussian  0.5   linR  90.374 (IQR 7.204)  totD   0.069 (IQR 0.038)  totP   0.042 (IQR 0.066)  nM_RMS 0.0481
+   mm        gaussian  0.5   linR  90.364 (IQR 7.169)  totD   0.067 (IQR 0.037)  totP   0.042 (IQR 0.065)  nM_RMS 0.0484
+   intensity nlm       1.0   linR  90.388 (IQR 7.338)  totD   0.073 (IQR 0.045)  totP   0.043 (IQR 0.072)  nM_RMS 0.0528
+   mm        nlm       0.6   linR  90.638 (IQR 6.324)  totD   0.054 (IQR 0.024)  totP   0.046 (IQR 0.045)  nM_RMS 0.0492
+   intensity wavelet   1.0   linR  90.250 (IQR 7.739)  totD   0.080 (IQR 0.046)  totP   0.042 (IQR 0.081)  nM_RMS 0.0562
+   mm        wavelet   1.0   linR  90.489 (IQR 6.720)  totD   0.056 (IQR 0.025)  totP   0.043 (IQR 0.069)  nM_RMS 0.0491
+   intensity tv        0.5   linR  90.322 (IQR 7.353)  totD   0.073 (IQR 0.042)  totP   0.042 (IQR 0.071)  nM_RMS 0.0510
+   mm        tv        0.5   linR  90.538 (IQR 6.500)  totD   0.059 (IQR 0.031)  totP   0.043 (IQR 0.058)  nM_RMS 0.0469
+   intensity bm3d      1.5   linR  90.337 (IQR 7.223)  totD   0.074 (IQR 0.040)  totP   0.043 (IQR 0.075)  nM_RMS 0.0497
+   mm        bm3d      0.75  linR  90.500 (IQR 6.465)  totD   0.058 (IQR 0.026)  totP   0.044 (IQR 0.074)  nM_RMS 0.0467
+
+tape 90deg (2026-10-15_161552_F_FF_HORAO_0000_011): reference medians linR=80.116  totD=0.055  totP=0.020
+   baseline  none      nan   linR  79.910 (IQR 6.241)  totD   0.077 (IQR 0.048)  totP   0.017 (IQR 0.084)  nM_RMS 0.0596
+   baseline  average   2     linR  79.991 (IQR 5.445)  totD   0.065 (IQR 0.038)  totP   0.019 (IQR 0.071)  nM_RMS 0.0454
+   baseline  average   4     linR  80.008 (IQR 4.984)  totD   0.058 (IQR 0.033)  totP   0.020 (IQR 0.063)  nM_RMS 0.0366
+   baseline  average   8     linR  80.047 (IQR 4.759)  totD   0.053 (IQR 0.029)  totP   0.021 (IQR 0.060)  nM_RMS 0.0298
+   intensity median    3     linR  79.841 (IQR 5.187)  totD   0.058 (IQR 0.036)  totP   0.017 (IQR 0.051)  nM_RMS 0.0582
+   mm        median    3     linR  79.976 (IQR 4.688)  totD   0.046 (IQR 0.025)  totP   0.020 (IQR 0.048)  nM_RMS 0.0539
+   intensity gaussian  0.5   linR  79.985 (IQR 5.200)  totD   0.059 (IQR 0.035)  totP   0.019 (IQR 0.061)  nM_RMS 0.0447
+   mm        gaussian  0.5   linR  79.981 (IQR 5.168)  totD   0.058 (IQR 0.034)  totP   0.020 (IQR 0.060)  nM_RMS 0.0449
+   intensity nlm       1.0   linR  79.892 (IQR 4.965)  totD   0.054 (IQR 0.038)  totP   0.021 (IQR 0.056)  nM_RMS 0.0457
+   mm        nlm       0.6   linR  79.906 (IQR 4.395)  totD   0.037 (IQR 0.018)  totP   0.022 (IQR 0.029)  nM_RMS 0.0451
+   intensity wavelet   1.0   linR  79.908 (IQR 5.693)  totD   0.070 (IQR 0.044)  totP   0.018 (IQR 0.074)  nM_RMS 0.0528
+   mm        wavelet   1.0   linR  79.993 (IQR 4.961)  totD   0.049 (IQR 0.030)  totP   0.019 (IQR 0.065)  nM_RMS 0.0467
+   intensity tv        0.5   linR  79.925 (IQR 5.287)  totD   0.061 (IQR 0.039)  totP   0.019 (IQR 0.060)  nM_RMS 0.0473
+   mm        tv        0.5   linR  79.991 (IQR 4.580)  totD   0.045 (IQR 0.026)  totP   0.019 (IQR 0.050)  nM_RMS 0.0434
+   intensity bm3d      1.5   linR  79.902 (IQR 5.091)  totD   0.061 (IQR 0.039)  totP   0.020 (IQR 0.062)  nM_RMS 0.0467
+   mm        bm3d      0.75  linR  80.008 (IQR 4.704)  totD   0.044 (IQR 0.023)  totP   0.020 (IQR 0.067)  nM_RMS 0.0427
+
+Mean over reference samples (bias = |median - nominal| or |median - reference median|):
+                    linR_bias  linR_IQR  ...  totP_IQR  nM_RMS_vs_ref
+method   level                           ...                         
+average  baseline      3.5536    9.9290  ...    0.2173         0.0350
+bm3d     mm            2.8118    9.3772  ...    0.2433         0.0455
+gaussian intensity     4.8296   12.1451  ...    0.2261         0.0469
+         mm            4.0700   11.1395  ...    0.2197         0.0471
+tv       intensity     6.1013   13.5214  ...    0.2683         0.0483
+bm3d     intensity     7.2893   14.6361  ...    0.2705         0.0495
+nlm      intensity     6.8116   13.5847  ...    0.2452         0.0495
+tv       mm            1.7652    8.0313  ...    0.1807         0.0506
+wavelet  mm            1.4419    7.6273  ...    0.2013         0.0510
+         intensity     7.9994   15.2485  ...    0.3106         0.0523
+nlm      mm            2.9116    5.9642  ...    0.2403         0.0543
+none     baseline      7.6439   14.4433  ...    0.2684         0.0562
+median   mm            3.8521   10.5876  ...    0.1996         0.0707
+         intensity     5.2764   13.0440  ...    0.2102         0.0750
+
+[14 rows x 7 columns]
