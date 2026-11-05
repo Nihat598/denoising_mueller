@@ -9,7 +9,7 @@ subtract_dark: true             # subtract <wl>_Noise.npy before computing M (co
 vst: true                       # Anscombe transform for the intensity path (noise model fitted on reference frames)
 saturation: 255
 averaging_baselines: [2, 4, 8]  # plain averaging of the first m frames (m <= N/2)
-min_reference_physical: 0.80    # skip acquisitions whose reference MM is mostly non-physical (calibration problem)
+min_reference_physical: 0.70    # skip acquisitions whose reference MM is mostly non-physical (calibration problem)
 physical_tol: auto              # Cloude eigenvalues >= -tol count as physical; auto = 3 x reference noise (waveplates sit on the boundary)
 
 # Fill in when the data arrive: acquisition folder names, split BY SPECIMEN / PATIENT.

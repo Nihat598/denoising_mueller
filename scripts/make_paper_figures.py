@@ -16,6 +16,7 @@ Usage
 from __future__ import annotations
 
 import argparse
+import os
 import sys
 from pathlib import Path
 
@@ -53,12 +54,12 @@ def save(fig, out, name):
 
 
 def best_levels(m):
-    d = m[m.level != "baseline"].groupby(["method", "level"])["nM_RMSE_corr"].mean().unstack()
+    d = m[m.level != "baseline"].groupby(["method", "level"])["nM_RMSE_corr"].median().unstack()
     return {meth: d.loc[meth].idxmin() for meth in d.index}
 
 
 # ---------------------------------------------------------------- fig 2 and 3: from metrics.csv
-def fig_scores(m, groups, out):
+def fig_scores(m, groups, out, score="nM_RMSE_corr", agg="median"):
     methods = [k for k in NAMES if k in set(m.method)]
     fig, axes = plt.subplots(1, len(groups), figsize=(max(5.4, 4.6 * len(groups)), 3.4), sharey=True)
     axes = np.atleast_1d(axes)
@@ -66,7 +67,7 @@ def fig_scores(m, groups, out):
         g = m[m.acq.isin(acqs)]
         x = np.arange(len(methods))
         for off, lev, col, lab in ((-0.19, "intensity", C_INT, "intensity level"), (0.19, "mm", C_MM, "MM level")):
-            v = [g[(g.method == k) & (g.level == lev)]["nM_RMSE_corr"].mean() for k in methods]
+            v = [g[(g.method == k) & (g.level == lev)][score].agg(agg) for k in methods]
             ax.bar(x + off, v, width=0.36, color=col, label=lab, edgecolor="white", linewidth=1)
         base = g[g.level == "baseline"]
         for (meth, val), style in (((("none", np.nan)), (1.4, "-")), ((("average", 2.0)), (1.0, ":")),
@@ -74,7 +75,7 @@ def fig_scores(m, groups, out):
             sel = base[(base.method == meth) & ((base.value == val) | (np.isnan(val) & base.value.isna()))]
             if sel.empty:
                 continue
-            y = sel["nM_RMSE_corr"].mean()
+            y = sel[score].agg(agg)
             ax.axhline(y, color=INK2, lw=style[0], ls=style[1], zorder=0)
             lab = "single frame" if meth == "none" else f"average of {int(val)}"
             ax.text(1.01, y, lab, transform=ax.get_yaxis_transform(), color=INK2, fontsize=7, va="center")
@@ -82,15 +83,16 @@ def fig_scores(m, groups, out):
         ax.set_title(f"{gname} (n={g.acq.nunique()})", fontsize=9, color=INK)
         ax.grid(axis="y", color=GRID, lw=0.6)
         ax.set_axisbelow(True)
-    axes[0].set_ylabel("Mueller-matrix error (nM_RMSE_corr)")
+    axes[0].set_ylabel(f"Mueller-matrix error ({score}, {agg} over acq.)")
     fig.legend(*axes[0].get_legend_handles_labels(), frameon=False, fontsize=8, loc="lower center", ncol=2,
                bbox_to_anchor=(0.5, -0.04))
     fig.tight_layout(rect=(0, 0.05, 1, 1), w_pad=4)
     save(fig, out, "fig2_scores")
 
 
-def fig_quality_time(m, out):
-    d = m[m.level != "baseline"].groupby(["method", "level"])[["nM_RMSE_corr", "time_pipeline_s"]].mean()
+def fig_quality_time(m, out, score="nM_RMSE_corr", agg="median"):
+    d = m[m.level != "baseline"].groupby(["method", "level"])[[score, "time_pipeline_s"]].agg(agg)
+    d = d.rename(columns={score: "nM_RMSE_corr"})
     fig, ax = plt.subplots(figsize=(4.6, 3.3))
     for (meth, lev), r in d.iterrows():
         col = C_INT if lev == "intensity" else C_MM
@@ -99,7 +101,7 @@ def fig_quality_time(m, out):
         off, ha = ((6, 3), "left") if lev == "intensity" else ((6, -9), "left")
         ax.annotate(NAMES.get(meth, meth), (r.time_pipeline_s, r.nM_RMSE_corr), xytext=off, ha=ha,
                     textcoords="offset points", fontsize=7, color=INK)
-    base = m[m.level == "baseline"].groupby(["method", "value"], dropna=False)["nM_RMSE_corr"].mean()
+    base = m[m.level == "baseline"].groupby(["method", "value"], dropna=False)[score].agg(agg)
     for (meth, val), y in base.items():
         lab = "single frame" if meth == "none" else f"average of {int(val)}"
         ax.axhline(y, color=INK2, lw=0.8, ls="--" if meth == "average" else "-", zorder=0)
@@ -107,7 +109,7 @@ def fig_quality_time(m, out):
                 color=INK2, va="center")
     ax.set_xscale("log")
     ax.set_xlabel("run time, one frame to maps (s)")
-    ax.set_ylabel("Mueller-matrix error (nM_RMSE_corr)")
+    ax.set_ylabel(f"Mueller-matrix error ({score}, {agg})")
     ax.scatter([], [], color=C_INT, marker="o", label="intensity level")
     ax.scatter([], [], color=C_MM, marker="s", label="MM level")
     ax.legend(frameon=False, fontsize=8, loc="lower center", ncol=2, bbox_to_anchor=(0.5, 1.0))
@@ -200,6 +202,9 @@ def main():
     ap.add_argument("--methods", nargs="*", default=["nlm", "bm3d", "wavelet", "tv"])
     ap.add_argument("--inset", nargs=4, type=int, default=None, metavar=("Y0", "Y1", "X0", "X1"))
     ap.add_argument("--out", default=None)
+    ap.add_argument("--score", default="nM_RMSE_corr", help="metrics column for figs 2-3")
+    ap.add_argument("--agg", default="median", choices=["median", "mean"],
+                    help="aggregate over acquisitions (median is robust to single-acquisition blow-ups)")
     args = ap.parse_args()
 
     cfg = yaml.safe_load(open(args.config))
@@ -212,8 +217,10 @@ def main():
     best = best_levels(m)
     print("better level per method (mean over test):", best)
 
-    fig_scores(m, groups, out)
-    fig_quality_time(m, out)
+    fig_scores(m, groups, out, args.score, args.agg)
+    fig_quality_time(m, out, args.score, args.agg)
+    if os.environ.get("FIGS_ONLY_SCORES"):
+        return
 
     acq = find_acquisition(paths["data_root"], args.acq, cfg["wavelength"])
     calib = load_calibration(find_calibration(acq.path, paths["calib_root"]), cfg["wavelength"])

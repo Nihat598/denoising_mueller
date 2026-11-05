@@ -1,0 +1,255 @@
+Writing to /home/claude/results_calf/compare_levels/2026-11-05_175730_3738_custom
+
+2026-11-03_120333_F_FF_HORAO_0000_002  calib=2026-11-03_095543  frames=16 (ref 9-16)  shift<=0px  ref physical=0.97  noise var=0.0613*I+0.269  eval px=275850
+   baseline  none      =nan   I_PSNR=43.06  nM_RMSE=0.1146  linR_RMSE=51.32  az_MAE=42.82  totP_RMSE=1.5237  phys=0.97  [denoise 0.0s, total 3.6s]
+   baseline  average   frames=2     I_PSNR=45.14  nM_RMSE=0.0841  linR_RMSE=41.32  az_MAE=41.76  totP_RMSE=0.3540  phys=0.99  [denoise 0.0s, total 0.0s]
+   baseline  average   frames=4     I_PSNR=47.06  nM_RMSE=0.0649  linR_RMSE=32.16  az_MAE=40.38  totP_RMSE=0.0466  phys=1.00  [denoise 0.0s, total 0.0s]
+   baseline  average   frames=8     I_PSNR=48.98  nM_RMSE=0.0528  linR_RMSE=26.03  az_MAE=38.83  totP_RMSE=0.0333  phys=1.00  [denoise 0.0s, total 0.0s]
+   intensity median    size=11    I_PSNR=46.36  nM_RMSE=0.0513  linR_RMSE=24.80  az_MAE=37.80  totP_RMSE=0.0323  phys=1.00  [denoise 6.6s, total 10.0s]
+   mm        median    size=11    I_PSNR=45.62  nM_RMSE=0.0419  linR_RMSE=25.75  az_MAE=35.28  totP_RMSE=0.0303  phys=1.00  [denoise 8.4s, total 11.8s]
+   intensity gaussian  sigma=3.0   I_PSNR=44.37  nM_RMSE=0.0420  linR_RMSE=26.28  az_MAE=34.51  totP_RMSE=0.0306  phys=1.00  [denoise 0.3s, total 3.8s]
+   mm        gaussian  sigma=3.0   I_PSNR=42.44  nM_RMSE=0.0440  linR_RMSE=26.46  az_MAE=34.66  totP_RMSE=0.0325  phys=1.00  [denoise 0.3s, total 3.8s]
+   intensity nlm       h=1.5   I_PSNR=47.53  nM_RMSE=0.0408  linR_RMSE=26.85  az_MAE=34.48  totP_RMSE=0.0304  phys=1.00  [denoise 1.7s, total 5.1s]
+   mm        nlm       h=1.5   I_PSNR=45.98  nM_RMSE=0.0417  linR_RMSE=27.04  az_MAE=34.58  totP_RMSE=0.0303  phys=1.00  [denoise 1.6s, total 4.9s]
+   intensity wavelet   scale=3.0   I_PSNR=45.24  nM_RMSE=0.0473  linR_RMSE=26.54  az_MAE=36.08  totP_RMSE=0.1068  phys=1.00  [denoise 1.0s, total 4.4s]
+   mm        wavelet   scale=3.0   I_PSNR=43.85  nM_RMSE=0.0463  linR_RMSE=27.71  az_MAE=35.23  totP_RMSE=0.0342  phys=1.00  [denoise 0.5s, total 4.0s]
+   intensity tv        weight=8.0   I_PSNR=46.91  nM_RMSE=0.0405  linR_RMSE=26.47  az_MAE=34.29  totP_RMSE=0.0295  phys=1.00  [denoise 6.7s, total 10.2s]
+   mm        tv        weight=4.0   I_PSNR=46.67  nM_RMSE=0.0408  linR_RMSE=27.09  az_MAE=34.16  totP_RMSE=0.0299  phys=1.00  [denoise 7.6s, total 10.8s]
+   intensity bm3d      scale=2.0   I_PSNR=48.31  nM_RMSE=0.0410  linR_RMSE=24.99  az_MAE=35.34  totP_RMSE=0.0301  phys=1.00  [denoise 179.8s, total 183.3s]
+   mm        bm3d      scale=2.0   I_PSNR=46.88  nM_RMSE=0.0403  linR_RMSE=29.76  az_MAE=34.39  totP_RMSE=0.0335  phys=1.00  [denoise 189.2s, total 192.5s]
+
+2026-11-03_123120_F_FF_HORAO_0000_004  calib=2026-11-03_095543  frames=16 (ref 9-16)  shift<=0px  ref physical=0.97  noise var=0.0618*I+0.260  eval px=270603
+   baseline  none      =nan   I_PSNR=43.49  nM_RMSE=0.1131  linR_RMSE=51.82  az_MAE=42.59  totP_RMSE=0.7545  phys=0.96  [denoise 0.0s, total 4.1s]
+   baseline  average   frames=2     I_PSNR=45.98  nM_RMSE=0.0826  linR_RMSE=42.28  az_MAE=41.36  totP_RMSE=0.1849  phys=0.99  [denoise 0.0s, total 0.0s]
+   baseline  average   frames=4     I_PSNR=48.13  nM_RMSE=0.0634  linR_RMSE=33.76  az_MAE=39.90  totP_RMSE=0.0440  phys=1.00  [denoise 0.0s, total 0.0s]
+   baseline  average   frames=8     I_PSNR=49.91  nM_RMSE=0.0515  linR_RMSE=27.86  az_MAE=38.06  totP_RMSE=0.0326  phys=1.00  [denoise 0.0s, total 0.0s]
+   intensity median    size=11    I_PSNR=45.16  nM_RMSE=0.0509  linR_RMSE=26.39  az_MAE=36.95  totP_RMSE=0.0322  phys=1.00  [denoise 6.9s, total 10.9s]
+   mm        median    size=11    I_PSNR=44.41  nM_RMSE=0.0412  linR_RMSE=27.08  az_MAE=33.95  totP_RMSE=0.0291  phys=1.00  [denoise 9.0s, total 13.0s]
+   intensity gaussian  sigma=3.0   I_PSNR=43.19  nM_RMSE=0.0411  linR_RMSE=27.44  az_MAE=33.22  totP_RMSE=0.0294  phys=1.00  [denoise 0.3s, total 3.9s]
+   mm        gaussian  sigma=3.0   I_PSNR=41.62  nM_RMSE=0.0426  linR_RMSE=27.64  az_MAE=33.34  totP_RMSE=0.0308  phys=1.00  [denoise 0.3s, total 3.7s]
+   intensity nlm       h=1.5   I_PSNR=48.78  nM_RMSE=0.0394  linR_RMSE=27.80  az_MAE=33.24  totP_RMSE=0.0286  phys=1.00  [denoise 1.6s, total 5.2s]
+   mm        nlm       h=1.5   I_PSNR=46.19  nM_RMSE=0.0404  linR_RMSE=27.94  az_MAE=33.25  totP_RMSE=0.0288  phys=1.00  [denoise 1.8s, total 5.4s]
+   intensity wavelet   scale=3.0   I_PSNR=45.42  nM_RMSE=0.0427  linR_RMSE=27.56  az_MAE=34.77  totP_RMSE=0.0302  phys=1.00  [denoise 0.5s, total 4.5s]
+   mm        wavelet   scale=3.0   I_PSNR=43.51  nM_RMSE=0.0433  linR_RMSE=28.72  az_MAE=33.93  totP_RMSE=0.0329  phys=1.00  [denoise 0.6s, total 4.1s]
+   intensity tv        weight=8.0   I_PSNR=46.37  nM_RMSE=0.0396  linR_RMSE=27.47  az_MAE=33.08  totP_RMSE=0.0283  phys=1.00  [denoise 7.3s, total 10.4s]
+   mm        tv        weight=4.0   I_PSNR=46.88  nM_RMSE=0.0397  linR_RMSE=28.13  az_MAE=32.90  totP_RMSE=0.0287  phys=1.00  [denoise 7.9s, total 11.7s]
+   intensity bm3d      scale=2.0   I_PSNR=49.92  nM_RMSE=0.0398  linR_RMSE=26.32  az_MAE=34.21  totP_RMSE=0.0284  phys=1.00  [denoise 183.1s, total 186.6s]
+   mm        bm3d      scale=2.0   I_PSNR=47.86  nM_RMSE=0.0390  linR_RMSE=30.54  az_MAE=33.18  totP_RMSE=0.0319  phys=1.00  [denoise 192.1s, total 195.5s]
+
+2026-11-03_123809_F_FF_HORAO_0000_007  calib=2026-11-03_095543  frames=16 (ref 9-16)  shift<=0px  ref physical=0.76  noise var=0.0594*I+0.282  eval px=204977
+[skip] reference MM mostly non-physical: check calibration (zoom/focus, date)
+
+2026-11-03_152145_F_FF_HORAO_0000_009  calib=2026-11-03_095543  frames=16 (ref 9-16)  shift<=1px  ref physical=0.79  noise var=0.0832*I+0.318  eval px=221309
+[skip] reference MM mostly non-physical: check calibration (zoom/focus, date)
+
+2026-11-03_152503_F_FF_HORAO_0000_011  calib=2026-11-03_095543  frames=16 (ref 9-16)  shift<=1px  ref physical=0.88  noise var=0.0655*I+0.330  eval px=246977
+   baseline  none      =nan   I_PSNR=41.68  nM_RMSE=0.1390  linR_RMSE=51.35  az_MAE=42.01  totP_RMSE=3.6571  phys=0.95  [denoise 0.0s, total 3.3s]
+   baseline  average   frames=2     I_PSNR=43.32  nM_RMSE=0.0995  linR_RMSE=43.53  az_MAE=40.89  totP_RMSE=0.6494  phys=0.98  [denoise 0.0s, total 0.0s]
+   baseline  average   frames=4     I_PSNR=44.71  nM_RMSE=0.0771  linR_RMSE=36.15  az_MAE=39.35  totP_RMSE=0.0823  phys=0.99  [denoise 0.0s, total 0.0s]
+   baseline  average   frames=8     I_PSNR=46.11  nM_RMSE=0.0632  linR_RMSE=30.88  az_MAE=37.63  totP_RMSE=0.0398  phys=1.00  [denoise 0.0s, total 0.0s]
+   intensity median    size=11    I_PSNR=41.61  nM_RMSE=0.0709  linR_RMSE=29.97  az_MAE=36.56  totP_RMSE=0.0469  phys=1.00  [denoise 6.7s, total 10.4s]
+   mm        median    size=11    I_PSNR=41.13  nM_RMSE=0.0553  linR_RMSE=30.36  az_MAE=33.99  totP_RMSE=0.0387  phys=1.00  [denoise 8.9s, total 12.3s]
+   intensity gaussian  sigma=3.0   I_PSNR=41.80  nM_RMSE=0.0532  linR_RMSE=31.02  az_MAE=33.26  totP_RMSE=0.0368  phys=1.00  [denoise 0.3s, total 3.6s]
+   mm        gaussian  sigma=3.0   I_PSNR=41.05  nM_RMSE=0.0541  linR_RMSE=31.09  az_MAE=33.39  totP_RMSE=0.0372  phys=1.00  [denoise 0.3s, total 3.7s]
+   intensity nlm       h=1.5   I_PSNR=44.78  nM_RMSE=0.0510  linR_RMSE=31.14  az_MAE=33.47  totP_RMSE=0.0373  phys=1.00  [denoise 1.9s, total 5.5s]
+   mm        nlm       h=1.5   I_PSNR=42.12  nM_RMSE=0.0540  linR_RMSE=31.59  az_MAE=33.22  totP_RMSE=0.0378  phys=1.00  [denoise 1.8s, total 5.4s]
+   intensity wavelet   scale=3.0   I_PSNR=43.49  nM_RMSE=0.0580  linR_RMSE=30.17  az_MAE=34.80  totP_RMSE=0.0658  phys=1.00  [denoise 0.7s, total 4.3s]
+   mm        wavelet   scale=3.0   I_PSNR=42.81  nM_RMSE=0.0549  linR_RMSE=32.51  az_MAE=34.15  totP_RMSE=0.0470  phys=1.00  [denoise 0.6s, total 4.2s]
+   intensity tv        weight=8.0   I_PSNR=43.09  nM_RMSE=0.0522  linR_RMSE=30.84  az_MAE=33.39  totP_RMSE=0.0369  phys=1.00  [denoise 6.1s, total 9.9s]
+   mm        tv        weight=4.0   I_PSNR=43.88  nM_RMSE=0.0516  linR_RMSE=32.02  az_MAE=33.03  totP_RMSE=0.0377  phys=1.00  [denoise 8.2s, total 11.6s]
+   intensity bm3d      scale=2.0   I_PSNR=45.56  nM_RMSE=0.0533  linR_RMSE=29.20  az_MAE=34.64  totP_RMSE=0.0385  phys=1.00  [denoise 188.8s, total 192.5s]
+   mm        bm3d      scale=2.0   I_PSNR=44.38  nM_RMSE=0.0500  linR_RMSE=34.76  az_MAE=33.14  totP_RMSE=0.0425  phys=1.00  [denoise 191.5s, total 195.1s]
+
+Mean over acquisitions (sorted by nM_RMSE):
+                                   I_PSNR  ...  time_pipeline_s
+method   level     param  value           ...                 
+bm3d     mm        scale  2.0    46.3700  ...         194.3791
+nlm      intensity h      1.5    47.0303  ...           5.2753
+tv       mm        weight 4.0    45.8063  ...          11.3783
+         intensity weight 8.0    45.4569  ...          10.1484
+bm3d     intensity scale  2.0    47.9318  ...         187.4614
+nlm      mm        h      1.5    44.7626  ...           5.2361
+gaussian intensity sigma  3.0    43.1191  ...           3.7708
+median   mm        size   11.0   43.7226  ...          12.3652
+gaussian mm        sigma  3.0    41.7062  ...           3.7435
+wavelet  mm        scale  3.0    43.3886  ...           4.0922
+         intensity scale  3.0    44.7162  ...           4.3684
+average  baseline  frames 8.0    48.3321  ...           0.0000
+median   intensity size   11.0   44.3767  ...          10.4437
+average  baseline  frames 4.0    46.6306  ...           0.0000
+                          2.0    44.8102  ...           0.0000
+none     baseline         NaN    42.7450  ...           3.6675
+
+[16 rows x 11 columns]
+Writing to /home/claude/results_calf/compare_levels/2026-11-05_170304_2225_custom
+
+2026-11-03_120426_F_FF_HORAO_0000_003  calib=2026-11-03_095543  frames=16 (ref 9-16)  shift<=0px  ref physical=0.96  noise var=0.0660*I+0.180  eval px=271057
+   baseline  none      =nan   I_PSNR=44.20  nM_RMSE=0.1456  linR_RMSE=49.53  az_MAE=42.50  totP_RMSE=6.0414  phys=0.95  [denoise 0.0s, total 4.3s]
+   baseline  average   frames=2     I_PSNR=46.58  nM_RMSE=0.1057  linR_RMSE=39.50  az_MAE=41.30  totP_RMSE=1.7553  phys=0.98  [denoise 0.0s, total 0.0s]
+   baseline  average   frames=4     I_PSNR=48.66  nM_RMSE=0.0810  linR_RMSE=30.53  az_MAE=39.93  totP_RMSE=0.0995  phys=1.00  [denoise 0.0s, total 0.0s]
+   baseline  average   frames=8     I_PSNR=50.37  nM_RMSE=0.0656  linR_RMSE=24.85  az_MAE=38.23  totP_RMSE=0.0426  phys=1.00  [denoise 0.0s, total 0.0s]
+   intensity median    size=11    I_PSNR=45.78  nM_RMSE=0.0669  linR_RMSE=24.43  az_MAE=37.57  totP_RMSE=0.0439  phys=1.00  [denoise 6.9s, total 11.5s]
+   mm        median    size=11    I_PSNR=45.27  nM_RMSE=0.0519  linR_RMSE=24.91  az_MAE=34.45  totP_RMSE=0.0377  phys=1.00  [denoise 8.9s, total 12.3s]
+   intensity gaussian  sigma=3.0   I_PSNR=43.67  nM_RMSE=0.0527  linR_RMSE=25.43  az_MAE=33.85  totP_RMSE=0.0383  phys=1.00  [denoise 0.4s, total 3.8s]
+   mm        gaussian  sigma=3.0   I_PSNR=41.69  nM_RMSE=0.0541  linR_RMSE=25.69  az_MAE=34.05  totP_RMSE=0.0406  phys=1.00  [denoise 0.4s, total 4.3s]
+   intensity nlm       h=1.5   I_PSNR=49.06  nM_RMSE=0.0516  linR_RMSE=26.13  az_MAE=33.79  totP_RMSE=0.0375  phys=1.00  [denoise 1.8s, total 5.9s]
+   mm        nlm       h=1.5   I_PSNR=47.33  nM_RMSE=0.0516  linR_RMSE=26.29  az_MAE=33.86  totP_RMSE=0.0381  phys=1.00  [denoise 2.0s, total 6.1s]
+   intensity wavelet   scale=3.0   I_PSNR=45.98  nM_RMSE=0.0566  linR_RMSE=24.52  az_MAE=35.89  totP_RMSE=0.0399  phys=1.00  [denoise 1.1s, total 5.2s]
+   mm        wavelet   scale=3.0   I_PSNR=45.96  nM_RMSE=0.0549  linR_RMSE=26.87  az_MAE=34.34  totP_RMSE=0.0406  phys=1.00  [denoise 0.7s, total 4.7s]
+   intensity tv        weight=8.0   I_PSNR=47.17  nM_RMSE=0.0512  linR_RMSE=25.62  az_MAE=33.69  totP_RMSE=0.0370  phys=1.00  [denoise 7.5s, total 11.5s]
+   mm        tv        weight=4.0   I_PSNR=47.55  nM_RMSE=0.0503  linR_RMSE=26.13  az_MAE=33.53  totP_RMSE=0.0371  phys=1.00  [denoise 8.4s, total 12.3s]
+   intensity bm3d      scale=2.0   I_PSNR=49.79  nM_RMSE=0.0522  linR_RMSE=24.39  az_MAE=34.67  totP_RMSE=0.0373  phys=1.00  [denoise 358.0s, total 361.7s]
+   mm        bm3d      scale=2.0   I_PSNR=48.10  nM_RMSE=0.0496  linR_RMSE=29.04  az_MAE=33.61  totP_RMSE=0.0406  phys=1.00  [denoise 381.7s, total 385.4s]
+
+2026-11-03_123254_F_FF_HORAO_0000_005  calib=2026-11-03_095543  frames=16 (ref 9-16)  shift<=0px  ref physical=0.97  noise var=0.0605*I+0.280  eval px=276918
+   baseline  none      =nan   I_PSNR=44.48  nM_RMSE=0.1384  linR_RMSE=49.74  az_MAE=42.51  totP_RMSE=1.1023  phys=0.95  [denoise 0.0s, total 3.6s]
+   baseline  average   frames=2     I_PSNR=46.93  nM_RMSE=0.1000  linR_RMSE=39.92  az_MAE=41.43  totP_RMSE=0.3991  phys=0.98  [denoise 0.0s, total 0.0s]
+   baseline  average   frames=4     I_PSNR=49.10  nM_RMSE=0.0764  linR_RMSE=31.38  az_MAE=40.01  totP_RMSE=0.0572  phys=1.00  [denoise 0.0s, total 0.0s]
+   baseline  average   frames=8     I_PSNR=50.89  nM_RMSE=0.0621  linR_RMSE=25.98  az_MAE=38.38  totP_RMSE=0.0393  phys=1.00  [denoise 0.0s, total 0.0s]
+   intensity median    size=11    I_PSNR=46.06  nM_RMSE=0.0673  linR_RMSE=25.53  az_MAE=37.81  totP_RMSE=0.0409  phys=1.00  [denoise 6.7s, total 10.7s]
+   mm        median    size=11    I_PSNR=45.60  nM_RMSE=0.0493  linR_RMSE=26.02  az_MAE=34.84  totP_RMSE=0.0350  phys=1.00  [denoise 8.5s, total 12.0s]
+   intensity gaussian  sigma=3.0   I_PSNR=44.31  nM_RMSE=0.0534  linR_RMSE=26.63  az_MAE=34.06  totP_RMSE=0.0354  phys=1.00  [denoise 0.3s, total 4.0s]
+   mm        gaussian  sigma=3.0   I_PSNR=42.49  nM_RMSE=0.0511  linR_RMSE=26.85  az_MAE=34.19  totP_RMSE=0.0373  phys=1.00  [denoise 0.3s, total 4.2s]
+   intensity nlm       h=1.5   I_PSNR=49.88  nM_RMSE=0.0545  linR_RMSE=27.02  az_MAE=34.04  totP_RMSE=0.0343  phys=1.00  [denoise 1.9s, total 5.6s]
+   mm        nlm       h=1.5   I_PSNR=47.60  nM_RMSE=0.0485  linR_RMSE=27.28  az_MAE=34.05  totP_RMSE=0.0348  phys=1.00  [denoise 1.9s, total 5.8s]
+   intensity wavelet   scale=3.0   I_PSNR=46.92  nM_RMSE=0.0542  linR_RMSE=26.09  az_MAE=35.79  totP_RMSE=0.0407  phys=1.00  [denoise 0.6s, total 4.4s]
+   mm        wavelet   scale=3.0   I_PSNR=45.74  nM_RMSE=0.0501  linR_RMSE=28.02  az_MAE=34.51  totP_RMSE=0.0382  phys=1.00  [denoise 0.6s, total 4.0s]
+   intensity tv        weight=8.0   I_PSNR=47.46  nM_RMSE=0.0518  linR_RMSE=26.69  az_MAE=33.90  totP_RMSE=0.0341  phys=1.00  [denoise 7.2s, total 11.4s]
+   mm        tv        weight=4.0   I_PSNR=48.18  nM_RMSE=0.0476  linR_RMSE=27.41  az_MAE=33.72  totP_RMSE=0.0342  phys=1.00  [denoise 8.2s, total 11.8s]
+   intensity bm3d      scale=2.0   I_PSNR=50.76  nM_RMSE=0.0521  linR_RMSE=25.48  az_MAE=34.94  totP_RMSE=0.0341  phys=1.00  [denoise 183.9s, total 187.7s]
+   mm        bm3d      scale=2.0   I_PSNR=49.02  nM_RMSE=0.0469  linR_RMSE=30.22  az_MAE=33.82  totP_RMSE=0.0378  phys=1.00  [denoise 205.5s, total 209.6s]
+
+2026-11-03_124038_F_FF_HORAO_0000_008  calib=2026-11-03_095543  frames=16 (ref 9-16)  shift<=1px  ref physical=0.88  noise var=0.0914*I+0.000  eval px=242817
+   baseline  none      =nan   I_PSNR=41.93  nM_RMSE=0.1323  linR_RMSE=49.86  az_MAE=42.29  totP_RMSE=6.1008  phys=0.96  [denoise 0.0s, total 3.3s]
+   baseline  average   frames=2     I_PSNR=43.74  nM_RMSE=0.0959  linR_RMSE=41.70  az_MAE=41.15  totP_RMSE=0.5255  phys=0.98  [denoise 0.0s, total 0.0s]
+   baseline  average   frames=4     I_PSNR=45.42  nM_RMSE=0.0736  linR_RMSE=34.43  az_MAE=39.62  totP_RMSE=0.0601  phys=1.00  [denoise 0.0s, total 0.0s]
+   baseline  average   frames=8     I_PSNR=47.42  nM_RMSE=0.0595  linR_RMSE=29.58  az_MAE=37.87  totP_RMSE=0.0374  phys=1.00  [denoise 0.0s, total 0.0s]
+   intensity median    size=11    I_PSNR=41.69  nM_RMSE=0.0646  linR_RMSE=28.24  az_MAE=37.07  totP_RMSE=0.0448  phys=1.00  [denoise 7.4s, total 11.3s]
+   mm        median    size=11    I_PSNR=41.21  nM_RMSE=0.0509  linR_RMSE=29.42  az_MAE=34.13  totP_RMSE=0.0381  phys=1.00  [denoise 9.0s, total 12.7s]
+   intensity gaussian  sigma=3.0   I_PSNR=40.82  nM_RMSE=0.0507  linR_RMSE=30.13  az_MAE=33.35  totP_RMSE=0.0384  phys=1.00  [denoise 0.3s, total 4.0s]
+   mm        gaussian  sigma=3.0   I_PSNR=39.40  nM_RMSE=0.0537  linR_RMSE=30.39  az_MAE=33.53  totP_RMSE=0.0426  phys=1.00  [denoise 0.3s, total 3.9s]
+   intensity nlm       h=1.5   I_PSNR=45.06  nM_RMSE=0.0487  linR_RMSE=30.60  az_MAE=33.42  totP_RMSE=0.0422  phys=1.00  [denoise 1.8s, total 5.3s]
+   mm        nlm       h=1.5   I_PSNR=43.21  nM_RMSE=0.0499  linR_RMSE=30.93  az_MAE=33.36  totP_RMSE=0.0385  phys=1.00  [denoise 1.8s, total 5.5s]
+   intensity wavelet   scale=3.0   I_PSNR=43.84  nM_RMSE=0.0576  linR_RMSE=29.83  az_MAE=35.50  totP_RMSE=1.4824  phys=1.00  [denoise 0.7s, total 4.3s]
+   mm        wavelet   scale=3.0   I_PSNR=42.65  nM_RMSE=0.2420  linR_RMSE=31.88  az_MAE=34.26  totP_RMSE=0.1510  phys=1.00  [denoise 0.7s, total 4.6s]
+   intensity tv        weight=8.0   I_PSNR=43.85  nM_RMSE=0.0483  linR_RMSE=29.98  az_MAE=33.28  totP_RMSE=0.0361  phys=1.00  [denoise 7.3s, total 11.0s]
+   mm        tv        weight=4.0   I_PSNR=44.37  nM_RMSE=0.0485  linR_RMSE=31.00  az_MAE=33.01  totP_RMSE=0.0375  phys=1.00  [denoise 8.5s, total 12.4s]
+   intensity bm3d      scale=2.0   I_PSNR=46.18  nM_RMSE=0.0488  linR_RMSE=28.46  az_MAE=34.56  totP_RMSE=0.0372  phys=1.00  [denoise 193.0s, total 196.3s]
+   mm        bm3d      scale=2.0   I_PSNR=44.78  nM_RMSE=0.0468  linR_RMSE=34.72  az_MAE=33.26  totP_RMSE=0.0414  phys=1.00  [denoise 195.8s, total 199.3s]
+
+2026-11-03_152252_F_FF_HORAO_0000_010  calib=2026-11-03_095543  frames=16 (ref 9-16)  shift<=1px  ref physical=0.89  noise var=0.0606*I+0.299  eval px=247705
+   baseline  none      =nan   I_PSNR=41.11  nM_RMSE=0.1475  linR_RMSE=50.01  az_MAE=39.43  totP_RMSE=6.0416  phys=0.95  [denoise 0.0s, total 3.4s]
+   baseline  average   frames=2     I_PSNR=42.63  nM_RMSE=0.1038  linR_RMSE=41.64  az_MAE=37.19  totP_RMSE=0.2593  phys=0.98  [denoise 0.0s, total 0.0s]
+   baseline  average   frames=4     I_PSNR=43.99  nM_RMSE=0.0796  linR_RMSE=34.09  az_MAE=34.66  totP_RMSE=0.1862  phys=0.99  [denoise 0.0s, total 0.0s]
+   baseline  average   frames=8     I_PSNR=45.63  nM_RMSE=0.0643  linR_RMSE=28.87  az_MAE=32.19  totP_RMSE=0.0401  phys=1.00  [denoise 0.0s, total 0.0s]
+   intensity median    size=11    I_PSNR=41.49  nM_RMSE=0.0689  linR_RMSE=28.18  az_MAE=30.83  totP_RMSE=0.0437  phys=1.00  [denoise 6.7s, total 11.1s]
+   mm        median    size=11    I_PSNR=40.93  nM_RMSE=0.0542  linR_RMSE=27.64  az_MAE=27.93  totP_RMSE=0.0394  phys=1.00  [denoise 9.3s, total 14.0s]
+   intensity gaussian  sigma=3.0   I_PSNR=40.89  nM_RMSE=0.0533  linR_RMSE=28.13  az_MAE=27.28  totP_RMSE=0.0395  phys=1.00  [denoise 0.3s, total 3.9s]
+   mm        gaussian  sigma=3.0   I_PSNR=40.37  nM_RMSE=0.0548  linR_RMSE=28.20  az_MAE=27.35  totP_RMSE=0.0411  phys=1.00  [denoise 0.3s, total 4.1s]
+   intensity nlm       h=1.5   I_PSNR=43.67  nM_RMSE=0.0523  linR_RMSE=28.48  az_MAE=27.59  totP_RMSE=0.0397  phys=1.00  [denoise 1.8s, total 6.1s]
+   mm        nlm       h=1.5   I_PSNR=42.26  nM_RMSE=0.0530  linR_RMSE=28.63  az_MAE=27.33  totP_RMSE=0.0395  phys=1.00  [denoise 1.8s, total 5.3s]
+   intensity wavelet   scale=3.0   I_PSNR=42.57  nM_RMSE=0.0645  linR_RMSE=28.56  az_MAE=29.10  totP_RMSE=0.0705  phys=1.00  [denoise 0.6s, total 4.3s]
+   mm        wavelet   scale=3.0   I_PSNR=41.84  nM_RMSE=0.0679  linR_RMSE=29.33  az_MAE=28.13  totP_RMSE=0.0619  phys=1.00  [denoise 0.5s, total 3.9s]
+   intensity tv        weight=8.0   I_PSNR=42.66  nM_RMSE=0.0520  linR_RMSE=28.01  az_MAE=27.38  totP_RMSE=0.0387  phys=1.00  [denoise 6.9s, total 11.1s]
+   mm        tv        weight=4.0   I_PSNR=42.95  nM_RMSE=0.0520  linR_RMSE=28.85  az_MAE=27.08  totP_RMSE=0.0390  phys=1.00  [denoise 8.1s, total 11.5s]
+   intensity bm3d      scale=2.0   I_PSNR=44.16  nM_RMSE=0.0537  linR_RMSE=27.15  az_MAE=28.59  totP_RMSE=0.0397  phys=1.00  [denoise 183.4s, total 187.3s]
+   mm        bm3d      scale=2.0   I_PSNR=43.26  nM_RMSE=0.0515  linR_RMSE=31.87  az_MAE=27.35  totP_RMSE=0.0448  phys=1.00  [denoise 200.6s, total 204.2s]
+
+2026-11-03_152714_F_FF_HORAO_0000_012  calib=2026-11-03_095543  frames=16 (ref 9-16)  shift<=0px  ref physical=0.88  noise var=0.0590*I+0.304  eval px=243995
+   baseline  none      =nan   I_PSNR=44.02  nM_RMSE=0.1398  linR_RMSE=45.25  az_MAE=33.87  totP_RMSE=8.8352  phys=0.95  [denoise 0.0s, total 4.1s]
+   baseline  average   frames=2     I_PSNR=46.47  nM_RMSE=0.0998  linR_RMSE=37.32  az_MAE=31.48  totP_RMSE=1.3840  phys=0.98  [denoise 0.0s, total 0.0s]
+   baseline  average   frames=4     I_PSNR=48.59  nM_RMSE=0.0764  linR_RMSE=30.53  az_MAE=29.19  totP_RMSE=0.0920  phys=0.99  [denoise 0.0s, total 0.0s]
+   baseline  average   frames=8     I_PSNR=50.36  nM_RMSE=0.0620  linR_RMSE=26.14  az_MAE=27.10  totP_RMSE=0.0620  phys=1.00  [denoise 0.0s, total 0.0s]
+   intensity median    size=11    I_PSNR=38.98  nM_RMSE=0.0773  linR_RMSE=27.51  az_MAE=27.57  totP_RMSE=0.0597  phys=1.00  [denoise 6.8s, total 10.4s]
+   mm        median    size=11    I_PSNR=38.77  nM_RMSE=0.0645  linR_RMSE=26.97  az_MAE=24.84  totP_RMSE=0.0474  phys=1.00  [denoise 8.5s, total 11.9s]
+   intensity gaussian  sigma=3.0   I_PSNR=39.43  nM_RMSE=0.0618  linR_RMSE=26.51  az_MAE=24.00  totP_RMSE=0.0448  phys=1.00  [denoise 0.3s, total 4.0s]
+   mm        gaussian  sigma=3.0   I_PSNR=39.31  nM_RMSE=0.0632  linR_RMSE=26.71  az_MAE=24.16  totP_RMSE=0.0451  phys=1.00  [denoise 0.3s, total 4.1s]
+   intensity nlm       h=1.5   I_PSNR=47.85  nM_RMSE=0.0538  linR_RMSE=25.30  az_MAE=23.87  totP_RMSE=0.0409  phys=1.00  [denoise 1.7s, total 5.2s]
+   mm        nlm       h=1.5   I_PSNR=42.69  nM_RMSE=0.0604  linR_RMSE=25.68  az_MAE=23.85  totP_RMSE=0.0448  phys=1.00  [denoise 1.6s, total 4.9s]
+   intensity wavelet   scale=3.0   I_PSNR=43.86  nM_RMSE=0.0605  linR_RMSE=25.73  az_MAE=24.97  totP_RMSE=0.0476  phys=1.00  [denoise 0.6s, total 4.1s]
+   mm        wavelet   scale=3.0   I_PSNR=42.89  nM_RMSE=0.0681  linR_RMSE=27.15  az_MAE=24.77  totP_RMSE=0.0569  phys=1.00  [denoise 0.5s, total 3.9s]
+   intensity tv        weight=8.0   I_PSNR=42.12  nM_RMSE=0.0576  linR_RMSE=25.13  az_MAE=23.82  totP_RMSE=0.0429  phys=1.00  [denoise 5.7s, total 9.0s]
+   mm        tv        weight=4.0   I_PSNR=44.25  nM_RMSE=0.0588  linR_RMSE=26.58  az_MAE=23.80  totP_RMSE=0.0457  phys=1.00  [denoise 7.2s, total 10.5s]
+   intensity bm3d      scale=2.0   I_PSNR=48.90  nM_RMSE=0.0534  linR_RMSE=24.58  az_MAE=24.56  totP_RMSE=0.0381  phys=1.00  [denoise 178.0s, total 181.8s]
+   mm        bm3d      scale=2.0   I_PSNR=47.01  nM_RMSE=0.0524  linR_RMSE=26.67  az_MAE=23.43  totP_RMSE=0.0447  phys=1.00  [denoise 185.9s, total 189.7s]
+
+Mean over acquisitions (sorted by nM_RMSE):
+                                   I_PSNR  ...  time_pipeline_s
+method   level     param  value           ...                 
+bm3d     mm        scale  2.0    46.4341  ...         237.6595
+tv       mm        weight 4.0    45.4630  ...          11.7080
+bm3d     intensity scale  2.0    47.9557  ...         222.9444
+nlm      intensity h      1.5    47.1060  ...           5.6305
+tv       intensity weight 8.0    44.6489  ...          10.7914
+nlm      mm        h      1.5    44.6173  ...           5.5457
+median   mm        size   11.0   42.3527  ...          12.5845
+gaussian intensity sigma  3.0    41.8244  ...           3.9252
+         mm        sigma  3.0    40.6530  ...           4.1372
+wavelet  intensity scale  3.0    44.6337  ...           4.4633
+average  baseline  frames 8.0    48.9337  ...           0.0000
+median   intensity size   11.0   42.8002  ...          10.9852
+average  baseline  frames 4.0    47.1524  ...           0.0000
+wavelet  mm        scale  3.0    43.8174  ...           4.1977
+average  baseline  frames 2.0    45.2712  ...           0.0000
+none     baseline         NaN    43.1495  ...           3.7176
+
+[16 rows x 11 columns]
+Writing to /home/claude/results_calf/compare_levels/2026-11-05_182647_4410_custom
+
+2026-11-03_123809_F_FF_HORAO_0000_007  calib=2026-11-03_095543  frames=16 (ref 9-16)  shift<=0px  ref physical=0.76  noise var=0.0594*I+0.282  eval px=204977
+   baseline  none      =nan   I_PSNR=42.60  nM_RMSE=4.4981  linR_RMSE=50.15  az_MAE=41.07  totP_RMSE=2.3296  phys=0.95  [denoise 0.0s, total 3.6s]
+   baseline  average   frames=2     I_PSNR=44.69  nM_RMSE=0.0926  linR_RMSE=40.21  az_MAE=39.66  totP_RMSE=2.3028  phys=0.98  [denoise 0.0s, total 0.0s]
+   baseline  average   frames=4     I_PSNR=46.53  nM_RMSE=0.0704  linR_RMSE=31.29  az_MAE=37.83  totP_RMSE=0.1190  phys=0.99  [denoise 0.0s, total 0.0s]
+   baseline  average   frames=8     I_PSNR=48.39  nM_RMSE=0.0569  linR_RMSE=25.20  az_MAE=35.77  totP_RMSE=0.0428  phys=1.00  [denoise 0.0s, total 0.0s]
+   intensity median    size=11    I_PSNR=44.27  nM_RMSE=0.0630  linR_RMSE=24.09  az_MAE=34.69  totP_RMSE=0.0658  phys=1.00  [denoise 6.4s, total 9.7s]
+   mm        median    size=11    I_PSNR=43.57  nM_RMSE=0.0495  linR_RMSE=24.54  az_MAE=31.34  totP_RMSE=0.0344  phys=1.00  [denoise 8.4s, total 11.5s]
+   intensity gaussian  sigma=3.0   I_PSNR=42.96  nM_RMSE=0.0484  linR_RMSE=24.89  az_MAE=30.62  totP_RMSE=0.0339  phys=1.00  [denoise 0.4s, total 3.8s]
+   mm        gaussian  sigma=3.0   I_PSNR=41.40  nM_RMSE=0.0505  linR_RMSE=25.12  az_MAE=30.81  totP_RMSE=0.0361  phys=1.00  [denoise 0.3s, total 3.7s]
+   intensity nlm       h=1.5   I_PSNR=46.77  nM_RMSE=0.0467  linR_RMSE=25.30  az_MAE=30.80  totP_RMSE=0.0378  phys=1.00  [denoise 2.0s, total 5.9s]
+   mm        nlm       h=1.5   I_PSNR=44.35  nM_RMSE=0.0494  linR_RMSE=25.72  az_MAE=30.67  totP_RMSE=0.0362  phys=1.00  [denoise 1.8s, total 5.2s]
+   intensity wavelet   scale=3.0   I_PSNR=44.22  nM_RMSE=0.0887  linR_RMSE=25.94  az_MAE=33.00  totP_RMSE=0.1431  phys=1.00  [denoise 1.0s, total 4.3s]
+   mm        wavelet   scale=3.0   I_PSNR=43.00  nM_RMSE=0.1209  linR_RMSE=26.31  az_MAE=31.61  totP_RMSE=0.0484  phys=1.00  [denoise 0.5s, total 3.9s]
+   intensity tv        weight=8.0   I_PSNR=45.33  nM_RMSE=0.0469  linR_RMSE=24.72  az_MAE=30.58  totP_RMSE=0.0325  phys=1.00  [denoise 6.9s, total 10.7s]
+   mm        tv        weight=4.0   I_PSNR=45.59  nM_RMSE=0.0473  linR_RMSE=25.64  az_MAE=30.23  totP_RMSE=0.0341  phys=1.00  [denoise 8.4s, total 11.7s]
+   intensity bm3d      scale=2.0   I_PSNR=47.69  nM_RMSE=0.0473  linR_RMSE=23.33  az_MAE=32.01  totP_RMSE=0.0333  phys=1.00  [denoise 184.2s, total 187.9s]
+   mm        bm3d      scale=2.0   I_PSNR=46.19  nM_RMSE=0.0455  linR_RMSE=27.68  az_MAE=30.42  totP_RMSE=0.0366  phys=1.00  [denoise 188.5s, total 191.7s]
+
+2026-11-03_152145_F_FF_HORAO_0000_009  calib=2026-11-03_095543  frames=16 (ref 9-16)  shift<=1px  ref physical=0.79  noise var=0.0832*I+0.318  eval px=221309
+   baseline  none      =nan   I_PSNR=40.46  nM_RMSE=0.1843  linR_RMSE=51.78  az_MAE=38.79  totP_RMSE=2.8917  phys=0.96  [denoise 0.0s, total 3.4s]
+   baseline  average   frames=2     I_PSNR=41.75  nM_RMSE=0.1082  linR_RMSE=44.41  az_MAE=36.73  totP_RMSE=0.3984  phys=0.98  [denoise 0.0s, total 0.0s]
+   baseline  average   frames=4     I_PSNR=42.79  nM_RMSE=0.0833  linR_RMSE=37.46  az_MAE=34.22  totP_RMSE=0.1862  phys=0.99  [denoise 0.0s, total 0.0s]
+   baseline  average   frames=8     I_PSNR=43.63  nM_RMSE=0.0680  linR_RMSE=32.41  az_MAE=31.77  totP_RMSE=0.0530  phys=1.00  [denoise 0.0s, total 0.0s]
+   intensity median    size=11    I_PSNR=41.01  nM_RMSE=0.0735  linR_RMSE=31.69  az_MAE=30.50  totP_RMSE=0.3981  phys=1.00  [denoise 6.5s, total 10.0s]
+   mm        median    size=11    I_PSNR=40.39  nM_RMSE=0.0570  linR_RMSE=30.95  az_MAE=27.44  totP_RMSE=0.0409  phys=1.00  [denoise 8.2s, total 11.8s]
+   intensity gaussian  sigma=3.0   I_PSNR=40.26  nM_RMSE=0.0554  linR_RMSE=31.25  az_MAE=26.86  totP_RMSE=0.0412  phys=1.00  [denoise 0.3s, total 4.4s]
+   mm        gaussian  sigma=3.0   I_PSNR=39.85  nM_RMSE=0.0565  linR_RMSE=31.30  az_MAE=26.95  totP_RMSE=0.0426  phys=1.00  [denoise 0.4s, total 4.4s]
+   intensity nlm       h=1.5   I_PSNR=42.81  nM_RMSE=0.0546  linR_RMSE=31.59  az_MAE=27.24  totP_RMSE=0.0412  phys=1.00  [denoise 1.7s, total 5.3s]
+   mm        nlm       h=1.5   I_PSNR=41.45  nM_RMSE=0.0558  linR_RMSE=31.89  az_MAE=27.00  totP_RMSE=0.0411  phys=1.00  [denoise 2.0s, total 5.9s]
+   intensity wavelet   scale=3.0   I_PSNR=41.83  nM_RMSE=0.0658  linR_RMSE=32.29  az_MAE=29.06  totP_RMSE=0.1691  phys=1.00  [denoise 0.5s, total 3.6s]
+   mm        wavelet   scale=3.0   I_PSNR=41.67  nM_RMSE=0.3075  linR_RMSE=32.63  az_MAE=27.83  totP_RMSE=0.7265  phys=1.00  [denoise 0.5s, total 3.8s]
+   intensity tv        weight=8.0   I_PSNR=41.97  nM_RMSE=0.0541  linR_RMSE=31.26  az_MAE=26.93  totP_RMSE=0.0404  phys=1.00  [denoise 7.4s, total 10.9s]
+   mm        tv        weight=4.0   I_PSNR=42.62  nM_RMSE=0.0538  linR_RMSE=32.15  az_MAE=26.65  totP_RMSE=0.0401  phys=1.00  [denoise 8.5s, total 12.0s]
+   intensity bm3d      scale=2.0   I_PSNR=43.60  nM_RMSE=0.0566  linR_RMSE=30.20  az_MAE=28.28  totP_RMSE=0.0407  phys=1.00  [denoise 179.4s, total 182.7s]
+   mm        bm3d      scale=2.0   I_PSNR=42.76  nM_RMSE=0.0531  linR_RMSE=34.71  az_MAE=26.92  totP_RMSE=0.0461  phys=1.00  [denoise 192.9s, total 196.9s]
+
+Mean over acquisitions (sorted by nM_RMSE):
+                                   I_PSNR  ...  time_pipeline_s
+method   level     param  value           ...                 
+bm3d     mm        scale  2.0    44.4762  ...         194.3282
+tv       intensity weight 8.0    43.6501  ...          10.7807
+         mm        weight 4.0    44.1034  ...          11.8241
+nlm      intensity h      1.5    44.7874  ...           5.6061
+gaussian intensity sigma  3.0    41.6124  ...           4.1150
+bm3d     intensity scale  2.0    45.6471  ...         185.2885
+nlm      mm        h      1.5    42.9011  ...           5.5870
+median   mm        size   11.0   41.9769  ...          11.6797
+gaussian mm        sigma  3.0    40.6286  ...           4.0796
+average  baseline  frames 8.0    46.0097  ...           0.0000
+median   intensity size   11.0   42.6418  ...           9.8243
+average  baseline  frames 4.0    44.6554  ...           0.0000
+wavelet  intensity scale  3.0    43.0207  ...           3.9954
+average  baseline  frames 2.0    43.2191  ...           0.0000
+wavelet  mm        scale  3.0    42.3346  ...           3.8270
+none     baseline         NaN    41.5311  ...           3.4980
+
+[16 rows x 11 columns]

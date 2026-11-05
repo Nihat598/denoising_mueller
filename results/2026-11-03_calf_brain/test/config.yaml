@@ -1,0 +1,47 @@
+# Calf brain, 2026-11-03 (Théotim): intensity-level vs MM-level classical denoising (scripts/compare_levels.py)
+# Needs: raw repeated frames (To_Process/<wl>_Image_Number_<k>.npy) + calibration (A, W, <wl>_Noise.npy).
+paths: configs/paths.yaml
+wavelength: 630
+
+min_frames: 8                   # input = frame 1, reference = mean of frames N/2+1..N
+register: true                  # integer-shift frames onto frame 1
+subtract_dark: true             # subtract <wl>_Noise.npy before computing M (consistent with calibration)
+vst: true                       # Anscombe transform for the intensity path (noise model fitted on reference frames)
+saturation: 255
+averaging_baselines: [2, 4, 8]  # plain averaging of the first m frames (m <= N/2)
+min_reference_physical: 0.70    # skip acquisitions whose reference MM is mostly non-physical (calibration problem)
+physical_tol: auto              # Cloude eigenvalues >= -tol count as physical; auto = 3 x reference noise (waveplates sit on the boundary)
+
+# Fill in when the data arrive: acquisition folder names, split BY SPECIMEN / PATIENT.
+split:
+  # Two specimens (Théotim): a brain piece with a cavity (001-008, morning) and slices (009-012, afternoon).
+  # Tune on two views of the cavity piece (one per zoom); test on its other views AND on the unseen slices.
+  val:  [2026-11-03_113650_F_FF_HORAO_0000_001,   # cavity piece, zoom 9000
+         2026-11-03_123521_F_FF_HORAO_0000_006]   # cavity piece, zoom 3000
+  test: [2026-11-03_120333_F_FF_HORAO_0000_002, 2026-11-03_120426_F_FF_HORAO_0000_003,
+         2026-11-03_123120_F_FF_HORAO_0000_004, 2026-11-03_123254_F_FF_HORAO_0000_005,
+         2026-11-03_123809_F_FF_HORAO_0000_007, 2026-11-03_124038_F_FF_HORAO_0000_008,   # cavity piece, other views
+         2026-11-03_152145_F_FF_HORAO_0000_009, 2026-11-03_152252_F_FF_HORAO_0000_010,
+         2026-11-03_152503_F_FF_HORAO_0000_011, 2026-11-03_152714_F_FF_HORAO_0000_012]   # slices (unseen specimen)
+
+
+# Groups for reporting (scripts/make_paper_figures.py).
+groups:
+  cavity piece, other views: [2026-11-03_120333_F_FF_HORAO_0000_002, 2026-11-03_120426_F_FF_HORAO_0000_003,
+                              2026-11-03_123120_F_FF_HORAO_0000_004, 2026-11-03_123254_F_FF_HORAO_0000_005,
+                              2026-11-03_123809_F_FF_HORAO_0000_007, 2026-11-03_124038_F_FF_HORAO_0000_008]
+  slices (unseen specimen):  [2026-11-03_152145_F_FF_HORAO_0000_009, 2026-11-03_152252_F_FF_HORAO_0000_010,
+                              2026-11-03_152503_F_FF_HORAO_0000_011, 2026-11-03_152714_F_FF_HORAO_0000_012]
+
+# Parameters per method and per level. Placeholders until the validation sweep
+# (python scripts/compare_levels.py --split val --sweep), which prints the best value per level.
+methods:   # tuned on val (cavity piece 001 + 006), mean nM_RMSE over both (see docs/REPORT_CALF_BRAIN.md)
+  median: {intensity: {size: 11}, mm: {size: 11}}
+  gaussian: {intensity: {sigma: 3.0}, mm: {sigma: 3.0}}
+  nlm: {intensity: {h: 1.5, patch_distance: 6, patch_size: 5}, mm: {h: 1.5, patch_distance: 6, patch_size: 5}}
+  wavelet: {intensity: {scale: 3.0}, mm: {scale: 3.0}}
+  tv: {intensity: {weight: 8.0}, mm: {weight: 4.0}}
+  bm3d: {intensity: {scale: 2.0}, mm: {scale: 2.0}}
+
+# Methods drawn in the per-acquisition comparison figures (one figure per method).
+figure_methods: [gaussian, nlm, bm3d]
