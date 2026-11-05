@@ -35,13 +35,13 @@ groups:
 
 # Parameters per method and per level. Placeholders until the validation sweep
 # (python scripts/compare_levels.py --split val --sweep), which prints the best value per level.
-methods:
-  median:   {intensity: {size: 3},        mm: {size: 3}}
-  gaussian: {intensity: {sigma: 1.0},     mm: {sigma: 1.0}}
-  nlm:      {intensity: {h: 0.8, patch_size: 5, patch_distance: 6}, mm: {h: 0.8, patch_size: 5, patch_distance: 6}}
-  wavelet:  {intensity: {scale: 1.0},     mm: {scale: 1.0}}
-  tv:       {intensity: {weight: 0.5},    mm: {weight: 0.5}}
-  bm3d:     {intensity: {scale: 1.0},     mm: {scale: 1.0}}
+methods:   # tuned on val (cavity piece 001 + 006), mean nM_RMSE over both (see docs/REPORT_CALF_BRAIN.md)
+  median: {intensity: {size: 11}, mm: {size: 11}}
+  gaussian: {intensity: {sigma: 3.0}, mm: {sigma: 3.0}}
+  nlm: {intensity: {h: 1.5, patch_distance: 6, patch_size: 5}, mm: {h: 1.5, patch_distance: 6, patch_size: 5}}
+  wavelet: {intensity: {scale: 3.0}, mm: {scale: 3.0}}
+  tv: {intensity: {weight: 8.0}, mm: {weight: 4.0}}
+  bm3d: {intensity: {scale: 2.0}, mm: {scale: 2.0}}
 
 # Methods drawn in the per-acquisition comparison figures (one figure per method).
 figure_methods: [gaussian, nlm, bm3d]

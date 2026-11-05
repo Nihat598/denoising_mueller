@@ -94,7 +94,9 @@ def prepare(name, frames, calib, *, register_frames=True, subtract_dark=True, sa
     q = len(ref_frames) // 2
     h1 = reconstruct_mm(np.moveaxis(ref_frames[:q].mean(0), 0, -1), A, W, dark)["nM"]
     h2 = reconstruct_mm(np.moveaxis(ref_frames[q:2 * q].mean(0), 0, -1), A, W, dark)["nM"]
-    region = valid & not_sat & (ref["M11"] > np.nanpercentile(ref["M11"], 2))
+    # same minimum signal as the evaluation mask: dark pixels (M11 ~ 0) make nM explode
+    min_sig = max(float(np.nanpercentile(ref["M11"], 2)), 0.1 * float(np.nanmedian(ref["M11"])))
+    region = valid & not_sat & (ref["M11"] > min_sig)
     d = ((h1 - h2)[..., 1:][region]) ** 2 / 4.0                     # (n_px, 15)
     ref_nM_var = np.nanmean(d, axis=0) * (2 * q / len(ref_frames))  # per element; scale if count is odd
     if physical_tol == "auto":

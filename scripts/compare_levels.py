@@ -19,6 +19,7 @@ Outputs in results/compare_levels/<timestamp>_<split>/: metrics.csv, summary.csv
 from __future__ import annotations
 
 import argparse
+import os
 import time
 import shutil
 from datetime import datetime
@@ -67,6 +68,8 @@ def main():
     ap.add_argument("--methods", nargs="*")
     ap.add_argument("--levels", nargs="*", default=["intensity", "mm"], choices=["intensity", "mm"])
     ap.add_argument("--sweep", action="store_true")
+    ap.add_argument("--grid", nargs="*", default=[], metavar="METHOD=V1,V2",
+                    help="override the sweep values of a method, e.g. --grid bm3d=0.75,1.0,1.5")
     ap.add_argument("--crop", type=int, default=0)
     ap.add_argument("--no-figures", action="store_true")
     args = ap.parse_args()
@@ -86,9 +89,13 @@ def main():
     if args.split == "test" and args.sweep:
         raise SystemExit("Refusing to sweep parameters on the test split: tune on val only.")
     methods = args.methods or list(cfg["methods"])
+    grids = dict(PARAM_GRIDS)
+    for g in args.grid:
+        meth, vals = g.split("=")
+        grids[meth] = (grids[meth][0], [float(v) for v in vals.split(",")])
 
     out = Path(paths.get("results_root", "results")) / "compare_levels" / \
-        f"{datetime.now():%Y-%m-%d_%H%M%S}_{tag}{'_sweep' if args.sweep else ''}"
+        f"{datetime.now():%Y-%m-%d_%H%M%S}_{os.getpid()}_{tag}{'_sweep' if args.sweep else ''}"
     (out / "figures").mkdir(parents=True, exist_ok=True)
     shutil.copy(args.config, out / "config.yaml")
     print(f"Writing to {out}")
@@ -133,7 +140,7 @@ def main():
 
         fig_maps = {}
         for method in methods:
-            pname, grid = PARAM_GRIDS[method]
+            pname, grid = grids[method]
             for level in args.levels:
                 fixed = dict(cfg["methods"].get(method, {}).get(level, {}))
                 for v in (grid if args.sweep else [fixed.get(pname)]):
