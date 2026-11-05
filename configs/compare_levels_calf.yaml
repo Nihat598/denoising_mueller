@@ -24,6 +24,15 @@ split:
          2026-11-03_152145_F_FF_HORAO_0000_009, 2026-11-03_152252_F_FF_HORAO_0000_010,
          2026-11-03_152503_F_FF_HORAO_0000_011, 2026-11-03_152714_F_FF_HORAO_0000_012]   # slices (unseen specimen)
 
+
+# Groups for reporting (scripts/make_paper_figures.py).
+groups:
+  cavity piece, other views: [2026-11-03_120333_F_FF_HORAO_0000_002, 2026-11-03_120426_F_FF_HORAO_0000_003,
+                              2026-11-03_123120_F_FF_HORAO_0000_004, 2026-11-03_123254_F_FF_HORAO_0000_005,
+                              2026-11-03_123809_F_FF_HORAO_0000_007, 2026-11-03_124038_F_FF_HORAO_0000_008]
+  slices (unseen specimen):  [2026-11-03_152145_F_FF_HORAO_0000_009, 2026-11-03_152252_F_FF_HORAO_0000_010,
+                              2026-11-03_152503_F_FF_HORAO_0000_011, 2026-11-03_152714_F_FF_HORAO_0000_012]
+
 # Parameters per method and per level. Placeholders until the validation sweep
 # (python scripts/compare_levels.py --split val --sweep), which prints the best value per level.
 methods:
