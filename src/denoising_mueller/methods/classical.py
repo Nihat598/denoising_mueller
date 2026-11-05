@@ -78,7 +78,7 @@ FILTERS: dict[str, Callable] = {
 # Main parameter swept for each method (name, candidate values). Tune on validation data only.
 PARAM_GRIDS: dict[str, tuple[str, list]] = {
     "median": ("size", [3, 5, 7]),
-    "gaussian": ("sigma", [0.5, 1.0, 1.5, 2.0, 3.0]),
+    "gaussian": ("sigma", [0.3, 0.5, 0.75, 1.0, 1.5, 2.0]),
     "nlm": ("h", [0.4, 0.6, 0.8, 1.0, 1.2]),
     "wavelet": ("scale", [0.5, 0.75, 1.0, 1.5, 2.0]),
     "tv": ("weight", [0.1, 0.25, 0.5, 1.0, 2.0]),

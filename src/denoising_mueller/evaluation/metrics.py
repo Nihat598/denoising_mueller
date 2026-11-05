@@ -20,9 +20,13 @@ MAP_RANGES = {"totD": 1.0, "totP": 1.0, "linR": 180.0, "M11": 255.0}
 def evaluation_mask(ref_valid: np.ndarray, ref_M11: np.ndarray, sat_level: float = 250.0,
                     min_M11: float | None = None, border: int = 8) -> np.ndarray:
     """Pixels used for all metrics: physical in the reference, not saturated, above a minimum
-    signal (default: 2nd percentile of M11), and away from the image border."""
+    signal, and away from the image border.
+
+    Default minimum signal: the larger of the 2nd percentile of M11 and 10% of its median. Dark
+    regions (e.g. a cavity in the tissue) have M11 ~ 0, where the single-frame normalized matrix
+    M / m11 explodes; the percentile alone does not remove them when they cover > 2% of the image."""
     if min_M11 is None:
-        min_M11 = float(np.nanpercentile(ref_M11, 2))
+        min_M11 = max(float(np.nanpercentile(ref_M11, 2)), 0.1 * float(np.nanmedian(ref_M11)))
     m = ref_valid & np.isfinite(ref_M11) & (ref_M11 < sat_level) & (ref_M11 > min_M11)
     if border:
         m = binary_erosion(m, iterations=1, border_value=0)
