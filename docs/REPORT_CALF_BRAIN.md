@@ -60,7 +60,8 @@ physically valid (lower values = more background around the tissue).
    also changes which pixels count as physically valid; the lower ones before it. All strengths were therefore
    re-scored on 001 + 006 with the final code (`val_sweep/recheck_metrics.csv`). The chosen strengths stay best or
    within ~1% of the best (e.g. NLM at the MM level: h 1.0 → 0.0431, h 1.5 → 0.0433), so the test results stand.
-   BM3D: see `val_sweep/recheck_bm3d.txt`.
+   BM3D: at the MM level 1.5 and 2.0 are within 0.5% of each other; at the intensity level 2.0 stays best
+   (`val_sweep/recheck_bm3d.txt`).
 6. Acquisitions 007 and 009 were first skipped by the safety check "reference ≥ 80% physical" (they are at 76% and
    79% because of background). The threshold is 70% for this dataset; the scoring mask excludes invalid pixels anyway.
 
