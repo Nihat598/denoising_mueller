@@ -165,6 +165,37 @@ columns single frame, 8-frame average, Gaussian, NLM, TV, BM3D (each at its bett
 
 ---
 
+## 6b. Do the retardance and azimuth maps make sense? (check added 12 Nov)
+
+Visually, the denoised retardance and azimuth do not look like the 16-frame average. `scripts/check_map_agreement.py`
+on slice 011 shows why (tissue pixels; "strong" = the 21% of tissue with clear retardance, R > 20° in the lightly
+smoothed 16-frame average, where the fibre direction is well defined):
+
+| | Retardance, all tissue | Retardance, strong | Azimuth error vs ref., strong px (median) | within 15° |
+|---|---|---|---|---|
+| single frame | 52.5° | 71.3° | 29.4° | 30% |
+| average of 8 | 24.2° | 45.7° | 13.4° | 54% |
+| 16-frame average (raw) | 19.0° | 39.8° | 9.2° | 66% |
+| 16-frame average, lightly smoothed (reference) | 9.7° | 30.3° | — | — |
+| Gaussian (int.), 1 frame / on 16-frame avg | 10.8° / 8.4° | 30.5° / 27.7° | 4.4° | 84% |
+| NLM (int.), 1 frame / on 16-frame avg | 11.8° / 11.9° | 30.5° / 29.8° | 4.8° | 81% |
+| TV (int.), 1 frame / on 16-frame avg | 11.3° / 10.8° | 30.5° / 30.5° | 4.8° | 82% |
+| BM3D (MM), 1 frame / on 16-frame avg | 5.4° / 8.5° | 24.5° / 28.0° | 4.5° | 84% |
+
+1. **The raw 16-frame average is not a valid reference for retardance.** Smoothing it only lightly halves its
+   retardance (19° → 9.7°): most of its retardance is still noise. That is the visual mismatch.
+2. **Filters on one frame ≈ the same filter on 16 frames** (Gaussian, NLM, TV within ~2°): the single-frame result is
+   not limited by noise any more. **BM3D at the MM level is the exception**: 5.4° on one frame vs 8.5° on 16 frames, i.e.
+   it over-flattens weak retardance.
+3. **Fibre direction is recovered where fibres are visible:** on strongly retarding tissue the filters agree with the
+   reference within ~4.5° (median), better than the raw 16-frame average itself (9.2°).
+4. **Where retardance is weak (~80% of this tissue), the azimuth is undefined** for every method and the maps there
+   are not interpretable. Show the azimuth only where retardance is clear (as the figures do below 5°).
+5. Caveat: the reference is itself a smoothed map, which slightly favours smoothing methods. A long acquisition
+   (≥ 64 frames) would remove that caveat.
+
+---
+
 ## 7. Run time
 
 The test runs mostly ran two jobs at once on 2 CPU cores, so their times are inflated (BM3D ~190 s instead of
