@@ -72,6 +72,8 @@ def main():
                     help="override the sweep values of a method, e.g. --grid bm3d=0.75,1.0,1.5")
     ap.add_argument("--crop", type=int, default=0)
     ap.add_argument("--pddn-patch", type=int, default=None, help="override the PDDN tile size (128 or 256)")
+    ap.add_argument("--pddn-clip", type=float, default=None,
+                    help="clip intensities above this percentile before PDDN (e.g. 99.5; reflections)")
     ap.add_argument("--no-figures", action="store_true")
     args = ap.parse_args()
 
@@ -102,6 +104,8 @@ def main():
                 raise SystemExit(f"configs/paths.yaml needs '{k}' to run PDDN (see configs/paths.example.yaml)")
         if args.pddn_patch:
             cfg["methods"]["pddn"]["intensity"]["patch_size"] = args.pddn_patch
+        if args.pddn_clip is not None:
+            cfg["methods"]["pddn"]["intensity"]["clip"] = args.pddn_clip
 
     out = Path(paths.get("results_root", "results")) / "compare_levels" / \
         f"{datetime.now():%Y-%m-%d_%H%M%S}_{os.getpid()}_{tag}{'_sweep' if args.sweep else ''}"
@@ -159,7 +163,8 @@ def main():
                     if method == "pddn":
                         model = get_model(paths["pddn_weights"], paths["pddn_lib"], params.get("patch_size", 128),
                                           paths.get("pddn_device"), params.get("ema", False))
-                        I, mm, maps, dt = pl.pddn_path(p, model, int(params.get("tstr", 1)), params.get("hop", 0.25))
+                        I, mm, maps, dt = pl.pddn_path(p, model, int(params.get("tstr", 1)), params.get("hop", 0.25),
+                                                        params.get("clip"))
                     elif level == "intensity":
                         I, mm, maps, dt = pl.intensity_path(p, method, params, vst=cfg.get("vst", True))
                     else:

@@ -175,11 +175,11 @@ def intensity_path(p: Prepared, method: str, params: dict, vst: bool = True):
     return I, mm, maps, {"denoise": t1 - t0, "pipeline": t2 - t0}
 
 
-def pddn_path(p: Prepared, model, tstr: int = 1, hop: float = 0.25):
+def pddn_path(p: Prepared, model, tstr: int = 1, hop: float = 0.25, clip=None):
     """PDDN on the 16 raw intensities of frame 1 (no VST, no dark subtraction before the network, as in the lab's
     pipeline), then MM and maps. timing as in intensity_path; "denoise" is the network time incl. GPU sync."""
     t0 = time.perf_counter()
-    I, t_net = model.denoise(p.inp, tstr=tstr, hop=hop)
+    I, t_net = model.denoise(p.inp, tstr=tstr, hop=hop, clip=clip)
     t1 = time.perf_counter()
     mm, maps = from_intensities(p, I)
     t2 = time.perf_counter()

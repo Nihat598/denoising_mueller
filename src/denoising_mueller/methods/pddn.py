@@ -67,9 +67,19 @@ class PDDN:
         self.info = {"weights": str(weights), "step": data.get("step"), "summary": data.get("summary"),
                      "device": str(self.device), "use_ema": use_ema}
 
-    def denoise(self, I: np.ndarray, tstr: int = 1, hop: float = 0.25, seed: int | None = 0):
-        """I: (H, W, 16) raw intensities. Returns (denoised (H, W, 16) float64, seconds incl. GPU sync)."""
+    def denoise(self, I: np.ndarray, tstr: int = 1, hop: float = 0.25, seed: int | None = 0, clip=None):
+        """I: (H, W, 16) raw intensities. Returns (denoised (H, W, 16) float64, seconds incl. GPU sync).
+
+        clip: optional percentile (e.g. 99.5). The network scales each image by its own min/max; bright specular
+        reflections (masked during training, per Moriconi 2024) then set the scale and squeeze the tissue into a narrow
+        range. With clip, values above that percentile are clipped before the network and restored afterwards."""
         torch = self.torch
+        hot = None
+        if clip is not None:
+            hi = float(np.percentile(I, clip))
+            hot = I > hi
+            I_orig = I
+            I = np.minimum(I, hi)
         if seed is not None:
             torch.manual_seed(seed)                      # only matters for tstr > 1 (stochastic steps)
         if self.device.type == "cuda":
@@ -83,7 +93,10 @@ class PDDN:
                 out = out.detach().cpu().numpy()
         if self.device.type == "cuda":
             torch.cuda.synchronize()
-        return out.astype(np.float64), time.perf_counter() - t0
+        out = out.astype(np.float64)
+        if hot is not None:
+            out[hot] = I_orig[hot]                       # reflections: keep the measured values
+        return out, time.perf_counter() - t0
 
 
 _CACHE: dict = {}
