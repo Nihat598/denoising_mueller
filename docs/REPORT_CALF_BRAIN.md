@@ -46,10 +46,13 @@ physically valid (lower values = more background around the tissue).
 
 ## 3. Changes since the October run
 
-1. **Dark pixels excluded.** The bottom of the simulated resection cavity is dark (signal ≈ 0). There, M/m11 explodes in a single frame and dominated
-   every score. Pixels below **10% of the median signal** are now excluded from scoring (about 5% of pixels), in both
-   the evaluation mask and the reference-noise estimate. October results were computed with the old rule (2nd
-   percentile only); re-running them would change them slightly.
+1. **Dark pixels excluded.** Where almost no light comes back (signal ≈ 0), M/m11 explodes in a single frame and
+   dominated every score. Pixels below **10% of the median signal** are now excluded from scoring, in both the
+   evaluation mask and the reference-noise estimate. These are the black background around the brain piece and deep
+   shadows between folds: 6–24% of pixels depending on how much background is in view (e.g. 001: 7.9%, 004: 6.4%,
+   007: 23.7%). The **simulated resection cavity itself is kept**: its walls reflect light and are clearly visible in
+   the depolarization and retardance maps (see `figures/cavity_excluded_pixels.png`). October results were computed with
+   the old rule (2nd percentile only); re-running them would change them slightly.
 2. **Median over acquisitions** in the summary tables and figures (instead of the mean), because wavelet at the MM
    level blows up on 3 acquisitions and would distort means.
 3. **Wider parameter ranges.** The brain kept preferring the strongest setting, so ranges were extended upward until
