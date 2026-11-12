@@ -29,7 +29,8 @@ Method details shared with the October run are in `docs/REPORT_2026-10-22.md` (s
 ## 2. Data
 
 12 acquisitions (16 frames each), calibration `2026-11-03_095543` (same day), 630 nm, 1 ms, digital gain 2.
-Two specimens (Théotim): a **brain piece with a cavity** (001–008, morning; zoom 9000 for 001–005, 3000 after) and
+Two specimens (Théotim), ex vivo calf brain: a **brain piece with a simulated surgical (resection) cavity** (001–008,
+morning; zoom 9000 for 001–005, 3000 after), mimicking the cavity walls a surgeon inspects after tumour removal, and
 **slices** (009–012, afternoon). Overview of all 12: `figures/overview_all_acquisitions.png`.
 
 Checks: no saturation (≤ 0.4% of pixels), drift ≤ 1–2 px (corrected by registration), reference matrices 76–99%
@@ -45,7 +46,7 @@ physically valid (lower values = more background around the tissue).
 
 ## 3. Changes since the October run
 
-1. **Dark pixels excluded.** The cavity is dark (signal ≈ 0). There, M/m11 explodes in a single frame and dominated
+1. **Dark pixels excluded.** The bottom of the simulated resection cavity is dark (signal ≈ 0). There, M/m11 explodes in a single frame and dominated
    every score. Pixels below **10% of the median signal** are now excluded from scoring (about 5% of pixels), in both
    the evaluation mask and the reference-noise estimate. October results were computed with the old rule (2nd
    percentile only); re-running them would change them slightly.
@@ -230,6 +231,8 @@ you can delete it.
    add it to fig2 and fig3. Confirm the training patch size and training acquisitions with Théotim first.
 2. **Re-time** all classical methods on the DGX Spark CPU (one clean run).
 3. Optional, settles the retardance question (section 5): one 64-frame acquisition of a slice.
-4. Agree the scope and the main message with Tatiana; suggested message: *"one denoised frame beats an 8-frame
+4. In the paper/talk, present the cavity piece as a surgery-like setting: inside a resection cavity the light is weaker
+   and single frames noisier, which is where averaging many frames is least practical and denoising matters most.
+5. Agree the scope and the main message with Tatiana; suggested message: *"one denoised frame beats an 8-frame
    average on brain tissue; filtering level matters per filter; noise biases retardance and depolarization, and
    denoising corrects most of it."*
