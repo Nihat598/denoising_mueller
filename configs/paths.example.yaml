@@ -3,3 +3,7 @@ data_root: "C:/Users/Nihat_AHMADLI/Desktop/SPIE/Data_for_denoising"   # searched
 calib_root: "C:/Users/Nihat_AHMADLI/Desktop/SPIE/Calibration"         # holds <YYYY-MM-DD_HHMMSS>/Processed_images/630nm/{A,W}.npy
 results_root: "results"
 wavelength: 630
+# PDDN (only needed for --methods pddn; runs on the GPU if torch sees one)
+pddn_weights: "C:/Users/Nihat_AHMADLI/Desktop/SPIE/PDDN/PDDN_weights/fast_PDDN_model.pt"
+pddn_lib: "C:/Users/Nihat_AHMADLI/Desktop/SPIE/PDDN/Denoising/fastMMPT-full-display/FASTMMPT/src/fastmmpt/application/denoising/fastPDDN.py"
+# pddn_device: "cuda"     # optional: force "cuda" or "cpu"

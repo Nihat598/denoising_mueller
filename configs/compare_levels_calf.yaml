@@ -42,6 +42,7 @@ methods:   # tuned on val (cavity piece 001 + 006), mean nM_RMSE over both (see 
   wavelet: {intensity: {scale: 3.0}, mm: {scale: 3.0}}
   tv: {intensity: {weight: 8.0}, mm: {weight: 4.0}}
   bm3d: {intensity: {scale: 2.0}, mm: {scale: 2.0}}
+  pddn: {intensity: {tstr: 1, patch_size: 256, hop: 0.25, ema: false}}   # tstr: tune on val (--sweep); checkpoint trained on 256 patches (lab pipeline uses 128)
 
 # Methods drawn in the per-acquisition comparison figures (one figure per method).
 figure_methods: [gaussian, nlm, bm3d]
