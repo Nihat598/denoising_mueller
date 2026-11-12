@@ -125,15 +125,15 @@ def masked(maps, M11, thr, min_linR=5.0):
     return out
 
 
-def fig_maps(cols, inset, out, title):
-    rows = [("totP", "Depolarization", "viridis", (0.6, 1.0)), ("linR", "Linear retardance (°)", "viridis", (0, 45)),
-            ("azimuth", "Azimuth (°)", "twilight", (0, 180)), ("totD", "Diattenuation", "viridis", (0, 0.2))]
+def fig_maps(cols, inset, out, title, cmap_main="viridis", cmap_azimuth="twilight"):
+    rows = [("totP", "Depolarization", cmap_main, (0.6, 1.0)), ("linR", "Linear retardance (°)", cmap_main, (0, 45)),
+            ("azimuth", "Azimuth (°)", cmap_azimuth, (0, 180)), ("totD", "Diattenuation", cmap_main, (0, 0.2))]
     n = len(cols)
     fig, axes = plt.subplots(len(rows), n, figsize=(1.75 * n + 0.6, 1.55 * len(rows) + 0.4), squeeze=False)
     cmaps = {}
     for i, (key, lab, cmap, (lo, hi)) in enumerate(rows):
         cm = plt.get_cmap(cmap).copy()
-        cm.set_bad("#e6e5e0")
+        cm.set_bad("#e6e5e0" if cmap not in ("jet", "turbo") else "#000000")
         cmaps[key] = cm
         for j, (name, mp) in enumerate(cols):
             ax = axes[i, j]
@@ -202,6 +202,8 @@ def main():
     ap.add_argument("--methods", nargs="*", default=["nlm", "bm3d", "wavelet", "tv"])
     ap.add_argument("--inset", nargs=4, type=int, default=None, metavar=("Y0", "Y1", "X0", "X1"))
     ap.add_argument("--out", default=None)
+    ap.add_argument("--cmap", default="viridis", help="colour map of the map figures (e.g. jet)")
+    ap.add_argument("--cmap-azimuth", default=None, help="colour map of the azimuth row (default: same as --cmap)")
     ap.add_argument("--score", default="nM_RMSE_corr", help="metrics column for figs 2-3")
     ap.add_argument("--agg", default="median", choices=["median", "mean"],
                     help="aggregate over acquisitions (median is robust to single-acquisition blow-ups)")
@@ -255,7 +257,7 @@ def main():
     stats.append(("16-frame average", fmaps))
 
     title = f"{args.acq}: one frame vs filters vs averaging"
-    fig_maps(cols, args.inset, out, title)
+    fig_maps(cols, args.inset, out, title, args.cmap, args.cmap_azimuth or args.cmap)
     med = [(n, {k: float(np.nanmedian(mp[k][tissue & np.isfinite(mp[k])])) for k in ("totP", "linR")})
            for n, mp in stats]
     pd.DataFrame([{"what": n, **v} for n, v in med]).to_csv(out / "fig4_noise_bias.csv", index=False)
