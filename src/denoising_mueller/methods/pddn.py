@@ -93,5 +93,9 @@ def get_model(weights, lib_path, patch_size=128, device=None, use_ema=False) -> 
     """Load once per (weights, patch size, device, ema) and reuse."""
     key = (str(weights), int(patch_size), device, bool(use_ema))
     if key not in _CACHE:
-        _CACHE[key] = PDDN(weights, lib_path, patch_size=patch_size, device=device, use_ema=use_ema)
+        model = PDDN(weights, lib_path, patch_size=patch_size, device=device, use_ema=use_ema)
+        # warm-up: the first GPU call includes one-off costs (cuDNN autotuning, memory allocation), which would
+        # otherwise be counted in the timing of the first image
+        model.denoise(np.random.default_rng(0).uniform(0, 255, (512, 608, 16)), tstr=2)
+        _CACHE[key] = model
     return _CACHE[key]
