@@ -40,7 +40,7 @@ from denoising_mueller.polarimetry.reconstruction import (find_calibration,     
 C_INT, C_MM = "#2a78d6", "#eb6834"
 INK, INK2, GRID = "#1f1f1e", "#5f5e58", "#d9d8d2"
 NAMES = {"median": "Median", "gaussian": "Gaussian", "nlm": "NLM", "wavelet": "Wavelet", "tv": "TV",
-         "bm3d": "BM3D"}
+         "bm3d": "BM3D", "pddn": "PDDN", "n2n": "Noise2Noise"}
 plt.rcParams.update({"font.size": 9, "axes.edgecolor": INK2, "axes.labelcolor": INK, "xtick.color": INK2,
                      "ytick.color": INK2, "axes.spines.top": False, "axes.spines.right": False,
                      "savefig.dpi": 300, "font.family": "DejaVu Sans"})
@@ -197,13 +197,16 @@ def fig_bias(stats, out, title):
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--config", required=True)
-    ap.add_argument("--metrics", required=True)
+    ap.add_argument("--metrics", required=True, nargs="+",
+                    help="metrics.csv of one or several test runs (e.g. classical filters + Noise2Noise), concatenated")
     ap.add_argument("--acq", required=True, help="acquisition for the map figures")
     ap.add_argument("--methods", nargs="*", default=["nlm", "bm3d", "wavelet", "tv"])
     ap.add_argument("--inset", nargs=4, type=int, default=None, metavar=("Y0", "Y1", "X0", "X1"))
     ap.add_argument("--out", default=None)
     ap.add_argument("--cmap", default="viridis", help="colour map of the map figures (e.g. jet)")
     ap.add_argument("--cmap-azimuth", default=None, help="colour map of the azimuth row (default: same as --cmap)")
+    ap.add_argument("--n2n-runs", default="runs/n2n", help="Noise2Noise runs (only if --methods includes n2n)")
+    ap.add_argument("--n2n-folds", nargs="*", default=[], help="folds to search for a model that never saw --acq")
     ap.add_argument("--score", default="nM_RMSE_corr", help="metrics column for figs 2-3")
     ap.add_argument("--agg", default="median", choices=["median", "mean"],
                     help="aggregate over acquisitions (median is robust to single-acquisition blow-ups)")
@@ -211,8 +214,8 @@ def main():
 
     cfg = yaml.safe_load(open(args.config))
     paths = load_paths(cfg.get("paths", "configs/paths.yaml"))
-    m = pd.read_csv(args.metrics)
-    out = Path(args.out or Path(args.metrics).parent / "paper_figures")
+    m = pd.concat([pd.read_csv(f) for f in args.metrics], ignore_index=True)
+    out = Path(args.out or Path(args.metrics[0]).parent / "paper_figures")
     out.mkdir(parents=True, exist_ok=True)
     print(f"Writing to {out}")
     groups = cfg.get("groups") or {"test": sorted(m.acq.unique())}
@@ -243,6 +246,20 @@ def main():
             cols.append(("average of 8", masked(maps, full["M11"], thr)))
     for meth in args.methods:
         lev = best[meth]
+        if meth == "n2n":
+            from denoising_mueller.methods.n2n import get_model as get_n2n
+            cks = [Path(args.n2n_runs) / f"{f}_{lev}" / "best.pt" for f in args.n2n_folds]
+            models = [get_n2n(c) for c in cks if c.exists()]
+            models = [md for md in models if args.acq in md.split["test"]]
+            if not models:
+                print(f"  [skip] no Noise2Noise model at level {lev} has {args.acq} in its test set"); continue
+            models[0].check_not_trained_on(args.acq)
+            _, mm, maps, _ = pl.n2n_path(p, models[0])
+            label = f"Noise2Noise ({'int.' if lev == 'intensity' else 'MM'})"
+            cols.append((label, masked(maps, full["M11"], thr)))
+            stats.append((label, maps))
+            print(f"  computed {label}")
+            continue
         params = dict(cfg["methods"][meth][lev])
         if lev == "intensity":
             _, mm, maps, _ = pl.intensity_path(p, meth, params, vst=cfg.get("vst", True))

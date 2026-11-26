@@ -1,0 +1,51 @@
+# New data (objects, 12 and 20 Nov 2026): held-out test objects of configs/n2n.yaml, for Noise2Noise and
+# the classical filters (scripts/compare_levels.py). The classical filters were tuned on brain; to compare them
+# fairly on objects, tune them on the val acquisitions first (--split val --sweep) and copy the values below.
+paths: configs/paths.yaml       # data_root / calib_root must contain new_data (and its Calibration folder)
+wavelength: 630
+
+min_frames: 8
+register: true
+subtract_dark: true
+vst: true
+saturation: 255
+averaging_baselines: [2, 4, 8]
+min_reference_physical: 0.50    # objects: retarders sit on the physical boundary, dark backgrounds
+physical_tol: auto
+
+split:
+  val:  [2026-11-12_173643_F_FF_HORAO_0000_036,
+         2026-11-20_161308_F_FF_HORAO_0000_060]   # plastic film, woven fabric (Noise2Noise validation objects, never test)
+  test: [2026-11-12_171514_F_FF_HORAO_0000_016,
+         2026-11-12_171609_F_FF_HORAO_0000_017,
+         2026-11-12_172757_F_FF_HORAO_0000_026,
+         2026-11-12_172843_F_FF_HORAO_0000_027,
+         2026-11-12_172937_F_FF_HORAO_0000_028,
+         2026-11-12_181330_F_FF_HORAO_0000_040,
+         2026-11-12_181458_F_FF_HORAO_0000_041,
+         2026-11-12_181618_F_FF_HORAO_0000_042,
+         2026-11-12_181653_F_FF_HORAO_0000_043,
+         2026-11-12_174037_F_FF_HORAO_0000_038,
+         2026-11-12_182117_F_FF_HORAO_0000_047,
+         2026-11-12_182149_F_FF_HORAO_0000_048,
+         2026-11-20_162850_F_FF_HORAO_0000_065,
+         2026-11-20_163916_F_FF_HORAO_0000_070]
+
+# Groups for the figures (scripts/make_paper_figures.py)
+groups:
+  stressed plastic: [2026-11-12_171514_F_FF_HORAO_0000_016, 2026-11-12_171609_F_FF_HORAO_0000_017]
+  printed holder: [2026-11-12_172757_F_FF_HORAO_0000_026, 2026-11-12_172843_F_FF_HORAO_0000_027, 2026-11-12_172937_F_FF_HORAO_0000_028]
+  leaf: [2026-11-12_181330_F_FF_HORAO_0000_040, 2026-11-12_181458_F_FF_HORAO_0000_041, 2026-11-12_181618_F_FF_HORAO_0000_042, 2026-11-12_181653_F_FF_HORAO_0000_043]
+  skin: [2026-11-12_174037_F_FF_HORAO_0000_038, 2026-11-12_182117_F_FF_HORAO_0000_047, 2026-11-12_182149_F_FF_HORAO_0000_048]
+  playing card: [2026-11-20_162850_F_FF_HORAO_0000_065]
+  plastic flower: [2026-11-20_163916_F_FF_HORAO_0000_070]
+
+methods:   # placeholders (brain-tuned values); re-tune on val for objects
+  median: {intensity: {size: 11}, mm: {size: 11}}
+  gaussian: {intensity: {sigma: 3.0}, mm: {sigma: 3.0}}
+  nlm: {intensity: {h: 1.5, patch_distance: 6, patch_size: 5}, mm: {h: 1.5, patch_distance: 6, patch_size: 5}}
+  wavelet: {intensity: {scale: 3.0}, mm: {scale: 3.0}}
+  tv: {intensity: {weight: 8.0}, mm: {weight: 4.0}}
+  bm3d: {intensity: {scale: 2.0}, mm: {scale: 2.0}}
+
+figure_methods: [n2n, nlm, bm3d]

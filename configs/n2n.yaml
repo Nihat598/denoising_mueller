@@ -1,0 +1,115 @@
+# Noise2Noise training on repeated polarimetric frames (scripts/train_n2n.py) and its evaluation
+# (scripts/compare_levels.py --methods n2n). See docs/NOISE2NOISE.md.
+paths: configs/paths.yaml       # data_root and calib_root must contain BOTH CALF_BRAIN and new_data (searched recursively)
+wavelength: 630
+register: true                  # integer-shift frames onto frame 1, as in the evaluation
+subtract_dark: true             # level mm: M = A^-1 (I - dark) W^-1, as in the evaluation
+saturation: 255                 # a pixel of a frame is saturated if any of its 16 channels reaches this count
+
+# Acquisitions never used (checked 2026-11-26): 018 and 031 almost no light, 050 frames change between shots
+# (noise 10x the others), 059 moves by ~5 px over the 16 frames.
+exclude:
+  - 2026-11-12_171729_F_FF_HORAO_0000_018
+  - 2026-11-12_173222_F_FF_HORAO_0000_031
+  - 2026-11-12_182335_F_FF_HORAO_0000_050
+  - 2026-11-20_161127_F_FF_HORAO_0000_059
+
+
+# New data (12 and 20 Nov 2026), grouped BY OBJECT: all views of one object stay on the same side of the split.
+# Groups were assigned from the images; check them if you know the objects (a test object must not have views
+# in another group).
+object_groups:
+  stressed_plastic:      [2026-11-12_171514_F_FF_HORAO_0000_016, 2026-11-12_171609_F_FF_HORAO_0000_017]   # plastic with stress fringes
+  dark_scene_018:        [2026-11-12_171729_F_FF_HORAO_0000_018]   # almost no light (excluded)
+  edge_019:              [2026-11-12_171911_F_FF_HORAO_0000_019]   # black/white edge
+  bright_disc_020:       [2026-11-12_172029_F_FF_HORAO_0000_020]   # bright surface with a round feature
+  texture_021:           [2026-11-12_172118_F_FF_HORAO_0000_021]   # low-light texture
+  paper_022:             [2026-11-12_172217_F_FF_HORAO_0000_022]   # paper-like diffuse surface
+  optics_card_023:       [2026-11-12_172354_F_FF_HORAO_0000_023]   # printed optics-company card
+  white_024:             [2026-11-12_172437_F_FF_HORAO_0000_024]   # white diffuse surface
+  graph_paper_tape_025:  [2026-11-12_172657_F_FF_HORAO_0000_025]   # graph paper with tape
+  printed_holder:        [2026-11-12_172757_F_FF_HORAO_0000_026, 2026-11-12_172843_F_FF_HORAO_0000_027, 2026-11-12_172937_F_FF_HORAO_0000_028]   # 3D-printed holder, three views
+  clear_sheet:           [2026-11-12_173102_F_FF_HORAO_0000_029, 2026-11-12_173144_F_FF_HORAO_0000_030]   # transparent sheet (retarder), two views
+  dark_scene_031:        [2026-11-12_173222_F_FF_HORAO_0000_031]   # almost no light (excluded)
+  speckle_032:           [2026-11-12_173329_F_FF_HORAO_0000_032]   # bright speckles on dark
+  grain_033:             [2026-11-12_173432_F_FF_HORAO_0000_033]   # grainy dark surface
+  printed_discs:         [2026-11-12_173511_F_FF_HORAO_0000_034, 2026-11-12_173545_F_FF_HORAO_0000_035]   # 3D-printed discs, two views
+  plastic_film_036:      [2026-11-12_173643_F_FF_HORAO_0000_036]   # plastic film
+  crumpled_foil_037:     [2026-11-12_173721_F_FF_HORAO_0000_037]   # crumpled foil/plastic
+  grey_surface_039:      [2026-11-12_181240_F_FF_HORAO_0000_039]   # grey surface with spots
+  leaf:                  [2026-11-12_181330_F_FF_HORAO_0000_040, 2026-11-12_181458_F_FF_HORAO_0000_041, 2026-11-12_181618_F_FF_HORAO_0000_042, 2026-11-12_181653_F_FF_HORAO_0000_043]   # leaf, four views
+  dark_corner:           [2026-11-12_181744_F_FF_HORAO_0000_044, 2026-11-12_181846_F_FF_HORAO_0000_045]   # dark scene with bright corner, two views
+  dark_edge_046:         [2026-11-12_182002_F_FF_HORAO_0000_046]   # dark scene with an edge
+  skin:                  [2026-11-12_174037_F_FF_HORAO_0000_038, 2026-11-12_182117_F_FF_HORAO_0000_047, 2026-11-12_182149_F_FF_HORAO_0000_048]   # skin (hand/finger), three views - 038 assumed to be skin too
+  bubble_wrap:           [2026-11-12_182253_F_FF_HORAO_0000_049, 2026-11-12_182335_F_FF_HORAO_0000_050]   # bubble wrap (050 excluded)
+  bottle_051:            [2026-11-12_182505_F_FF_HORAO_0000_051]   # plastic object
+  label_052:             [2026-11-12_182605_F_FF_HORAO_0000_052]   # paper label
+  edge_053:              [2026-11-12_182655_F_FF_HORAO_0000_053]   # edge between two surfaces
+  tape_roll:             [2026-11-12_182822_F_FF_HORAO_0000_054, 2026-11-12_182921_F_FF_HORAO_0000_055]   # roll of tape, two views
+  bag_056:               [2026-11-20_160439_F_FF_HORAO_0000_056]   # fabric/bag
+  soil_057:              [2026-11-20_160708_F_FF_HORAO_0000_057]   # soil/grains
+  spiky_leaf_058:        [2026-11-20_160832_F_FF_HORAO_0000_058]   # narrow spiky leaf
+  fabric_059:            [2026-11-20_161127_F_FF_HORAO_0000_059]   # fabric (excluded: moves)
+  woven_fabric:          [2026-11-20_161308_F_FF_HORAO_0000_060, 2026-11-20_161346_F_FF_HORAO_0000_061]   # woven fabric, two views
+  white_board:           [2026-11-20_161637_F_FF_HORAO_0000_062, 2026-11-20_161712_F_FF_HORAO_0000_063, 2026-11-20_162719_F_FF_HORAO_0000_064, 2026-11-20_163004_F_FF_HORAO_0000_066]   # white diffuse surface, four views (063: 11 frames)
+  playing_card:          [2026-11-20_162850_F_FF_HORAO_0000_065]   # playing card
+  perforated_strip:      [2026-11-20_163317_F_FF_HORAO_0000_067]   # perforated strip
+  dark_textile_068:      [2026-11-20_163541_F_FF_HORAO_0000_068]   # dark textile
+  white_069:             [2026-11-20_163632_F_FF_HORAO_0000_069]   # white surface with dark strip
+  plastic_flower:        [2026-11-20_163916_F_FF_HORAO_0000_070]   # plastic flower toy
+  coins:                 [2026-11-20_164017_F_FF_HORAO_0000_071]   # coins (42% saturated)
+  paper_bat:             [2026-11-20_164202_F_FF_HORAO_0000_072]   # paper cut-out (44% saturated)
+  disc_holes_073:        [2026-11-20_164336_F_FF_HORAO_0000_073]   # disc with holes
+
+objects_test: [stressed_plastic, printed_holder, leaf, skin, playing_card, plastic_flower]
+objects_val:  [clear_sheet, plastic_film_036, woven_fabric]
+
+# Calf brain (3 Nov 2026), two specimens.
+brain_specimens:
+  cavity_piece: [2026-11-03_113650_F_FF_HORAO_0000_001,
+                 2026-11-03_120333_F_FF_HORAO_0000_002,
+                 2026-11-03_120426_F_FF_HORAO_0000_003,
+                 2026-11-03_123120_F_FF_HORAO_0000_004,
+                 2026-11-03_123254_F_FF_HORAO_0000_005,
+                 2026-11-03_123521_F_FF_HORAO_0000_006,
+                 2026-11-03_123809_F_FF_HORAO_0000_007,
+                 2026-11-03_124038_F_FF_HORAO_0000_008]
+  slices:       [2026-11-03_152145_F_FF_HORAO_0000_009,
+                 2026-11-03_152252_F_FF_HORAO_0000_010,
+                 2026-11-03_152503_F_FF_HORAO_0000_011,
+                 2026-11-03_152714_F_FF_HORAO_0000_012]
+
+# Two-fold split by brain specimen (+ a model that never sees brain). Every brain acquisition is tested by a
+# network that never saw its specimen. brain_val: one view of the TRAINING specimen, used only to pick the
+# best checkpoint (not trained on).
+folds:
+  slices_test:
+    brain_train: [cavity_piece]
+    brain_val: [2026-11-03_123521_F_FF_HORAO_0000_006]
+    brain_test: [slices]
+  cavity_test:
+    brain_train: [slices]
+    brain_val: [2026-11-03_152252_F_FF_HORAO_0000_010]
+    brain_test: [cavity_piece]
+  objects_only:
+    brain_train: []
+    brain_val: []
+    brain_test: [cavity_piece, slices]
+
+training:
+  levels: [intensity, mm]       # one network per level
+  iterations: 50000
+  batch: 16
+  patch: 128                    # multiple of 32
+  lr: 3.0e-4                    # Adam (beta2 0.99, as Lehtinen et al.), cosine decay to lr_min after warmup
+  lr_min: 1.0e-6
+  warmup: 500
+  width: 48                     # U-Net features (Lehtinen et al.)
+  residual: true                # network predicts the correction to its input
+  target_frames: 1              # 1 = pure Noise2Noise (frame i -> frame j); k > 1: target = mean of k other frames
+  brain_fraction: 0.3           # share of training patches drawn from brain views (when the fold has any)
+  min_valid: 0.5                # redraw patches with less than 50% unsaturated pixels
+  scale_quantile: 99            # input/target are divided by this percentile of |values| (stored in the checkpoint)
+  val_every: 1000               # iterations between validations (best checkpoint = lowest val nM error)
+  seed: 0
+  amp: false                    # bfloat16 autocast on GPU (faster, slightly less precise)

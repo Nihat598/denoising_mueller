@@ -79,6 +79,8 @@ def main():
     ap.add_argument("--level", type=float, default=40.0, help="typical m11 in counts")
     ap.add_argument("--noise", type=float, nargs=2, default=[0.034, 0.18], metavar=("A", "B"))
     ap.add_argument("--seed", type=int, default=0)
+    ap.add_argument("--extra-tissue", type=int, default=0,
+                    help="also write N more tissue acquisitions (..._9999_101, _102, ...), e.g. to test Noise2Noise")
     args = ap.parse_args()
     rng = np.random.default_rng(args.seed)
     H, W = args.size
@@ -93,7 +95,10 @@ def main():
     qwp_delta, qwp_theta = 90.0, 30.0
     M_qwp = args.level * 1.5 * linear_retarder(np.full((H, W), np.radians(qwp_delta)),
                                                np.full((H, W), np.radians(qwp_theta)))
-    for name, M in ((TISSUE, tissue_mm(rng, H, W, args.level)), (QWP, M_qwp)):
+    samples = [(TISSUE, tissue_mm(rng, H, W, args.level)), (QWP, M_qwp)]
+    samples += [(f"2026-01-01_13{k // 60:02d}{k % 60:02d}_F_FF_HORAO_9999_{101 + k}",
+                 tissue_mm(rng, H, W, args.level * rng.uniform(0.5, 2.0))) for k in range(args.extra_tissue)]
+    for name, M in samples:
         d = out / "data" / name / "To_Process"
         d.mkdir(parents=True, exist_ok=True)
         for k, f in enumerate(acquire(rng, M, A, Wc, dark, args.frames, *args.noise), start=1):
@@ -104,7 +109,7 @@ def main():
         np.savez_compressed(out / "data" / name / "ground_truth.npz", M=mat_to_vec(M))
     (out / "data" / QWP / "waveplate.json").write_text(json.dumps({"retardance_deg": qwp_delta,
                                                                     "azimuth_deg": qwp_theta}))
-    print(f"Wrote {out}/data/{{{TISSUE},{QWP}}} and {out}/calibration/{CALIB}")
+    print(f"Wrote {len(samples)} acquisitions to {out}/data and {out}/calibration/{CALIB}")
 
 
 if __name__ == "__main__":

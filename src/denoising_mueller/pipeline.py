@@ -204,3 +204,27 @@ def mm_path(p: Prepared, method: str, params: dict):
     if p.dark is not None:
         I = I + (p.dark[..., None] if p.dark.ndim == 2 else p.dark)
     return I, {"M": M_den, "nM": nM, "M11": M11}, maps, {"denoise": t2 - t1, "pipeline": t3 - t0}
+
+
+def n2n_path(p: Prepared, model):
+    """Trained Noise2Noise network on frame 1, at the level it was trained for (methods/n2n.py).
+    intensity: raw counts of frame 1 (no VST, dark not subtracted: the network was trained on raw frames) -> MM.
+    mm: unnormalized MM of frame 1 -> network -> renormalize; mapped back to intensities for intensity metrics.
+    timing as in intensity_path / mm_path; "denoise" is the network time incl. GPU sync."""
+    t0 = time.perf_counter()
+    if model.level == "intensity":
+        I, t_net = model.denoise(p.inp)
+        mm, maps = from_intensities(p, I)
+        return I, mm, maps, {"denoise": t_net, "pipeline": time.perf_counter() - t0}
+    mm0 = reconstruct_mm(p.inp, p.A, p.W, p.dark)
+    M_den, t_net = model.denoise(mm0["M"])
+    M11 = M_den[..., 0].copy()
+    with np.errstate(divide="ignore", invalid="ignore"):
+        nM = M_den / M11[..., None]
+    maps = polarimetric_maps(nM)
+    t3 = time.perf_counter()
+    I = intensities_from_mm(M_den, p.A, p.W)
+    if p.dark is not None:
+        I = I + (p.dark[..., None] if p.dark.ndim == 2 else p.dark)
+    return I, {"M": M_den, "nM": nM, "M11": M11}, maps, {"denoise": t_net, "pipeline": t3 - t0}
+

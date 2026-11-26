@@ -74,6 +74,11 @@ def main():
     ap.add_argument("--pddn-patch", type=int, default=None, help="override the PDDN tile size (128 or 256)")
     ap.add_argument("--pddn-clip", type=float, default=None,
                     help="clip intensities above this percentile before PDDN (e.g. 99.5; reflections)")
+    ap.add_argument("--n2n-runs", default="runs/n2n", help="folder with the Noise2Noise runs (scripts/train_n2n.py)")
+    ap.add_argument("--n2n-folds", nargs="*", default=None,
+                    help="Noise2Noise folds to use, e.g. cavity_test slices_test: each acquisition is denoised by the "
+                         "first listed fold whose test set contains it")
+    ap.add_argument("--n2n-checkpoint", default="best.pt", help="best.pt (lowest validation error) or last.pt")
     ap.add_argument("--no-figures", action="store_true")
     args = ap.parse_args()
 
@@ -91,12 +96,29 @@ def main():
         raise SystemExit("No acquisitions: fill split.val / split.test in the config, or pass --acq.")
     if args.split == "test" and args.sweep:
         raise SystemExit("Refusing to sweep parameters on the test split: tune on val only.")
-    methods = args.methods or [m for m in cfg["methods"] if m != "pddn"]     # PDDN only when asked (needs GPU + paths)
+    methods = args.methods or [m for m in cfg["methods"] if m not in ("pddn", "n2n")]   # networks only when asked
     grids = dict(PARAM_GRIDS)
     grids.setdefault("pddn", ("tstr", [1, 2, 3, 5, 10]))
     for g in args.grid:
         meth, vals = g.split("=")
         grids[meth] = (grids[meth][0], [float(v) for v in vals.split(",")])
+    n2n_models = {}                                     # level -> [(fold, checkpoint path, split)]
+    if "n2n" in methods:
+        if args.sweep:
+            raise SystemExit("Noise2Noise has nothing to sweep: it is trained by scripts/train_n2n.py")
+        import torch
+        if not args.n2n_folds:
+            raise SystemExit("--methods n2n needs --n2n-folds (e.g. cavity_test slices_test, or objects_only)")
+        for level in args.levels:
+            for fold in args.n2n_folds:
+                ck = Path(args.n2n_runs) / f"{fold}_{level}" / args.n2n_checkpoint
+                if ck.exists():
+                    split = torch.load(ck, map_location="cpu", weights_only=False)["split"]
+                    n2n_models.setdefault(level, []).append((fold, ck, split))
+                else:
+                    print(f"[warn] no Noise2Noise checkpoint {ck}: level {level}, fold {fold} skipped")
+        n2n_label = "+".join(args.n2n_folds)
+        grids["n2n"] = ("folds", [n2n_label])
     if "pddn" in methods:
         from denoising_mueller.methods.pddn import get_model
         for k in ("pddn_weights", "pddn_lib"):
@@ -157,6 +179,21 @@ def main():
             for level in args.levels:
                 if method == "pddn" and level != "intensity":
                     continue                                    # PDDN works on intensities only
+                if method == "n2n":
+                    from denoising_mueller.methods.n2n import get_model as get_n2n
+                    cands = [(f, ck, sp) for f, ck, sp in n2n_models.get(level, []) if name in sp["test"]]
+                    if not cands:
+                        print(f"   {level:9s} n2n       [skip] {name} is in no test set of folds {args.n2n_folds}")
+                        continue
+                    fold, ck, _ = cands[0]
+                    model = get_n2n(ck, paths.get("n2n_device"))
+                    model.check_not_trained_on(name)            # leak guard (raises)
+                    I, mm, maps, dt = pl.n2n_path(p, model)
+                    base["n2n_fold"] = fold
+                    add(level, method, "folds", n2n_label, I, mm, maps, dt)
+                    base.pop("n2n_fold")
+                    fig_maps[(method, level)] = (f"Noise2Noise @ {level} ({fold})", maps)
+                    continue
                 fixed = dict(cfg["methods"].get(method, {}).get(level, {}))
                 for v in (grid if args.sweep else [fixed.get(pname)]):
                     params = {**fixed, pname: v} if v is not None else fixed

@@ -57,6 +57,14 @@ python scripts/check_waveplate.py --acq 2026-01-01_120500_F_FF_HORAO_9999_002
 python scripts/compare_levels.py --acq 2026-01-01_120000_F_FF_HORAO_9999_001 --methods gaussian bm3d --crop 128
 ```
 
+## Noise2Noise (self-supervised network, trained on repeated frames)
+
+```bash
+python scripts/train_n2n.py --fold slices_test --level intensity        # 3 folds x 2 levels, see the doc
+python scripts/compare_levels.py --config configs/compare_levels_calf.yaml --split test --methods n2n --n2n-folds cavity_test slices_test
+```
+Everything (method, data split, leak guards, commands for the DGX Spark): `docs/NOISE2NOISE.md`.
+
 ## Earlier benchmarks (precomputed MM.npz / intensities only)
 
 ```bash
