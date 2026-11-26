@@ -169,7 +169,16 @@ Each run writes `results/compare_levels/<time>_test/metrics.csv` in the same for
 column `n2n_fold` says which network denoised each acquisition). Time is measured on the GPU with
 synchronization, like PDDN.
 
-### 5.6 Figures with the classical filters
+### 5.6 Learning curves
+
+```bash
+python scripts/plot_n2n_curves.py          # -> runs/n2n/figures/n2n_curves*.png/.pdf
+```
+
+One overview figure (training loss and validation error, one column per level, one line per fold, raw-frame
+level dashed) and one figure per run.
+
+### 5.7 Figures with the classical filters
 
 ```bash
 python scripts/make_paper_figures.py --config configs/compare_levels_calf.yaml \
